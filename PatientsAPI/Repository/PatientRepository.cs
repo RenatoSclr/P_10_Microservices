@@ -29,7 +29,7 @@ namespace PatientsAPI.Repository
             return await _context.Patients.ToListAsync();
         }
 
-        public async Task<Patient> GetPatients(int id)
+        public async Task<Patient> GetPatients(Guid id)
         {
             return await _context.Patients.FindAsync(id);
         }

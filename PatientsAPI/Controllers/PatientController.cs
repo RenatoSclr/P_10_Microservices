@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using PatientsAPI.Domain;
+using PatientsAPI.Domain.Dtos;
 using PatientsAPI.Services;
 using PatientsAPI.Services.IServices;
 
@@ -13,13 +14,13 @@ namespace PatientsAPI.Controllers
     public class PatientController : Controller
     {
         private readonly IPatientService _patientService;
-        public PatientController(PatientService patientService)
+        public PatientController(IPatientService patientService)
         {
             _patientService = patientService;
         }
 
         [HttpPost("create")]
-        public async Task<ActionResult> CreatePatients(Patient patients)
+        public async Task<ActionResult> CreatePatients([FromBody] PatientDTO patients)
         {
             if (!ModelState.IsValid)
             {
@@ -31,10 +32,10 @@ namespace PatientsAPI.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult> GetPatientsById(int patientId)
+        public async Task<ActionResult> GetPatientsById(Guid id)
         {
-            var patients = await _patientService.GetPatientById(patientId);
-            if (patients == null) { return NotFound($"Le patient avec le numero d'identifiant : {patientId}, est introuvable"); }
+            var patients = await _patientService.GetPatientById(id);
+            if (patients == null) { return NotFound($"Le patient avec le numero d'identifiant : {id}, est introuvable"); }
 
             return Ok(patients);
         }
@@ -47,19 +48,25 @@ namespace PatientsAPI.Controllers
         }
 
         [HttpPut("update/{id}")]
-        public async Task<ActionResult> UpdatePatients(Patient patients)
+        public async Task<ActionResult> UpdatePatients(Guid id, [FromBody] PatientDTO patients)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            await _patientService.UpdatePatient(patients);
+            var patient = await _patientService.GetPatientById(id);
+            if (patient == null)
+            {
+                return NotFound($"Le patient avec l'id {id} est introuvable");
+            }
+
+            await _patientService.UpdatePatient(patients, id);
             return Ok($"Le patient {patients.Nom} {patients.Prenom} a ete mis a jour avec succee");
         }
 
-        [HttpPost("delete/{id}")]
-        public async Task<ActionResult> DeletePatient(int id)
+        [HttpDelete("delete/{id}")]
+        public async Task<ActionResult> DeletePatient(Guid id)
         {
             var patient = await _patientService.GetPatientById(id);
             if (patient == null)

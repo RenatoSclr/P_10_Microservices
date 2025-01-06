@@ -1,15 +1,13 @@
-﻿namespace PatientsAPI.Domain
+﻿using PatientsAPI.Domain.Enum;
+
+namespace PatientsAPI.Domain.Dtos
 {
-    public class Patient
+    public class PatientDTO
     {
-        public Guid PatientId { get; set; }
         public string Nom { get; set; }
         public string Prenom { get; set; }
         public DateTime DateDeNaissance { get; set; }
-
-        public int GenreId { get; set; }
-        public Genre Genre { get; set; }
-
+        public GenreType GenreType { get; set; }
         public string Adresse { get; set; }
         public string NumeroTelephone { get; set; }
     }

@@ -1,13 +1,15 @@
 ﻿using PatientsAPI.Domain;
+using PatientsAPI.Domain.Dtos;
 
 namespace PatientsAPI.Services.IServices
 {
     public interface IPatientService
     {
-        Task<List<Patient>> GetAllPatients();
-        Task<Patient> GetPatientById(int id);
-        Task AddPatient(Patient patient);
-        Task UpdatePatient(Patient patient);
+        Task<List<PatientDTO>> GetAllPatients();
+        Task<Patient> GetPatientById(Guid id);
+        Task<PatientDTO> GetPatientDTOById(Guid id);
+        Task AddPatient(PatientDTO patient);
+        Task UpdatePatient(PatientDTO patient, Guid id);
         Task DeletePatient(Patient patient);
     }
 }
