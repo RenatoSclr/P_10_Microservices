@@ -11,6 +11,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ApiGateway", "ApiGateway", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApiGateway", "ApiGateway\ApiGateway.csproj", "{E4CC4B75-FE6F-4034-B566-04B01A7A9678}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Frontend", "Frontend", "{3FC4EAC3-1078-450F-9673-09E9A0105934}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Frontend", "Frontend\Frontend.csproj", "{627BC3BC-A928-47A8-9EA7-230B62C1F782}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -25,6 +29,10 @@ Global
 		{E4CC4B75-FE6F-4034-B566-04B01A7A9678}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E4CC4B75-FE6F-4034-B566-04B01A7A9678}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E4CC4B75-FE6F-4034-B566-04B01A7A9678}.Release|Any CPU.Build.0 = Release|Any CPU
+		{627BC3BC-A928-47A8-9EA7-230B62C1F782}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{627BC3BC-A928-47A8-9EA7-230B62C1F782}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{627BC3BC-A928-47A8-9EA7-230B62C1F782}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{627BC3BC-A928-47A8-9EA7-230B62C1F782}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -32,5 +40,6 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{537E2D6A-D4EE-4D83-BEF5-BA9C35453F1E} = {9FF276E4-6423-40C1-84E1-6E42C49D5E2F}
 		{E4CC4B75-FE6F-4034-B566-04B01A7A9678} = {BE397276-1BFA-45BB-A44E-D323E3D82ADD}
+		{627BC3BC-A928-47A8-9EA7-230B62C1F782} = {3FC4EAC3-1078-450F-9673-09E9A0105934}
 	EndGlobalSection
 EndGlobal

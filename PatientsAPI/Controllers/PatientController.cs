@@ -34,7 +34,7 @@ namespace PatientsAPI.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult> GetPatientsById(Guid id)
         {
-            var patients = await _patientService.GetPatientById(id);
+            var patients = await _patientService.GetPatientDTOById(id);
             if (patients == null) { return NotFound($"Le patient avec le numero d'identifiant : {id}, est introuvable"); }
 
             return Ok(patients);
