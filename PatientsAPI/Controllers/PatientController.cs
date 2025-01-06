@@ -19,7 +19,7 @@ namespace PatientsAPI.Controllers
             _patientService = patientService;
         }
 
-        [HttpPost("create")]
+        [HttpPost]
         public async Task<ActionResult> CreatePatients([FromBody] PatientDTO patients)
         {
             if (!ModelState.IsValid)
@@ -47,7 +47,7 @@ namespace PatientsAPI.Controllers
             return Ok(patientsList);
         }
 
-        [HttpPut("update/{id}")]
+        [HttpPut("{id}")]
         public async Task<ActionResult> UpdatePatients(Guid id, [FromBody] PatientDTO patients)
         {
             if (!ModelState.IsValid)
@@ -65,7 +65,7 @@ namespace PatientsAPI.Controllers
             return Ok($"Le patient {patients.Nom} {patients.Prenom} a ete mis a jour avec succee");
         }
 
-        [HttpDelete("delete/{id}")]
+        [HttpDelete("{id}")]
         public async Task<ActionResult> DeletePatient(Guid id)
         {
             var patient = await _patientService.GetPatientById(id);

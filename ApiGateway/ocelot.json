@@ -1,0 +1,32 @@
+{
+  // Patients Web API
+  "Routes": [
+    {
+      "UpstreamPathTemplate": "/Patients",
+      "UpstreamHttpMethod": [ "Post", "Get" ],
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5001
+        }
+      ],
+      "DownstreamPathTemplate": "/Patients"
+    },
+    {
+      "UpstreamPathTemplate": "/Patients/{id}",
+      "UpstreamHttpMethod": [ "Put", "Get", "Delete" ],
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5001
+        }
+      ],
+      "DownstreamPathTemplate": "/Patients/{id}"
+    }
+  ],
+  "GlobalConfiguration": {
+    "BaseUrl": "https://localhost:5000"
+  }
+}
