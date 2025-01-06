@@ -1,9 +1,9 @@
 using Microsoft.EntityFrameworkCore;
-using Patient.Data;
-using Patient.Domain.IRepository;
-using Patient.Repository;
-using Patient.Services.IServices;
-using Patient.Services;
+using PatientsAPI.Data;
+using PatientsAPI.Domain.IRepository;
+using PatientsAPI.Repository;
+using PatientsAPI.Services.IServices;
+using PatientsAPI.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 

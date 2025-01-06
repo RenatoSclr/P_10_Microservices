@@ -1,9 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Patient.Data;
-using Patient.Domain;
-using Patient.Domain.IRepository;
+using PatientsAPI.Data;
+using PatientsAPI.Domain;
+using PatientsAPI.Domain.IRepository;
 
-namespace Patient.Repository
+namespace PatientsAPI.Repository
 {
     public class PatientRepository : IPatientRepository
     {
@@ -14,27 +14,27 @@ namespace Patient.Repository
             _context = context;
         }
 
-        public async Task AddPatient(Patients patients)
+        public async Task AddPatient(Patient patients)
         {
             await _context.Patients.AddAsync(patients);
         }
 
-        public async Task DeletePatient(Patients patient)
+        public async Task DeletePatient(Patient patient)
         {
             _context.Remove(patient);
         }
 
-        public async Task<List<Patients>> GetAllPatients()
+        public async Task<List<Patient>> GetAllPatients()
         {
             return await _context.Patients.ToListAsync();
         }
 
-        public async Task<Patients> GetPatients(int id)
+        public async Task<Patient> GetPatients(int id)
         {
             return await _context.Patients.FindAsync(id);
         }
 
-        public async Task UpdatePatient(Patients patients)
+        public async Task UpdatePatient(Patient patients)
         {
             _context.Update(patients);
         }

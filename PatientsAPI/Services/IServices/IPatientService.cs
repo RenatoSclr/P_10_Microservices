@@ -1,13 +1,13 @@
-﻿using Patient.Domain;
+﻿using PatientsAPI.Domain;
 
-namespace Patient.Services.IServices
+namespace PatientsAPI.Services.IServices
 {
     public interface IPatientService
     {
-        Task<List<Patients>> GetAllPatients();
-        Task<Patients> GetPatientById(int id);
-        Task AddPatient(Patients patient);
-        Task UpdatePatient(Patients patient);
-        Task DeletePatient(Patients patient);
+        Task<List<Patient>> GetAllPatients();
+        Task<Patient> GetPatientById(int id);
+        Task AddPatient(Patient patient);
+        Task UpdatePatient(Patient patient);
+        Task DeletePatient(Patient patient);
     }
 }

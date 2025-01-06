@@ -1,8 +1,8 @@
-﻿using Patient.Domain;
-using Patient.Domain.IRepository;
-using Patient.Services.IServices;
+﻿using PatientsAPI.Domain;
+using PatientsAPI.Domain.IRepository;
+using PatientsAPI.Services.IServices;
 
-namespace Patient.Services
+namespace PatientsAPI.Services
 {
     public class PatientService : IPatientService
     {
@@ -12,28 +12,28 @@ namespace Patient.Services
             _repository = repository;
         }
 
-        public async Task AddPatient(Patients patient)
+        public async Task AddPatient(Patient patient)
         {
             await _repository.AddPatient(patient);
             await _repository.Save();
         }
 
-        public async Task DeletePatient(Patients patient)
+        public async Task DeletePatient(Patient patient)
         {
            await _repository.DeletePatient(patient);
            await _repository.Save();
         }
-        public async Task<List<Patients>> GetAllPatients() 
+        public async Task<List<Patient>> GetAllPatients() 
         {
            return await _repository.GetAllPatients();
         }
 
-        public async Task<Patients> GetPatientById(int id)
+        public async Task<Patient> GetPatientById(int id)
         {
             return await _repository.GetPatients(id);
         }
 
-        public async Task UpdatePatient(Patients patient)
+        public async Task UpdatePatient(Patient patient)
         {
             await _repository.UpdatePatient(patient);
             await _repository.Save();

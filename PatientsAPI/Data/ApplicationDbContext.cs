@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Patient.Domain;
+using PatientsAPI.Domain;
 
-namespace Patient.Data
+namespace PatientsAPI.Data
 {
     public class ApplicationDbContext : DbContext
     {
@@ -10,12 +10,12 @@ namespace Patient.Data
         {
         }
 
-        public DbSet<Patients> Patients { get; set; }
+        public DbSet<Patient> Patients { get; set; }
         public DbSet<Genre> Genres { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Patients>()
+            modelBuilder.Entity<Patient>()
                 .HasOne(p => p.Genre) 
                 .WithMany(g => g.Patients) 
                 .HasForeignKey(p => p.GenreId); 

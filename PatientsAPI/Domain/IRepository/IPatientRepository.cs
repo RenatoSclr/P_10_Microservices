@@ -1,14 +1,14 @@
-﻿using Patient.Domain;
+﻿using PatientsAPI.Domain;
 
-namespace Patient.Domain.IRepository
+namespace PatientsAPI.Domain.IRepository
 {
     public interface IPatientRepository
     {
-        Task<List<Patients>> GetAllPatients();
-        Task<Patients> GetPatients(int id);
-        Task AddPatient(Patients patient);
-        Task UpdatePatient(Patients patient);
-        Task DeletePatient(Patients patient);
+        Task<List<Patient>> GetAllPatients();
+        Task<Patient> GetPatients(int id);
+        Task AddPatient(Patient patient);
+        Task UpdatePatient(Patient patient);
+        Task DeletePatient(Patient patient);
         Task Save();
     }
 }

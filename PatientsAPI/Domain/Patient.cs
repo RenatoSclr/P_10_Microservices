@@ -1,6 +1,6 @@
-﻿namespace Patient.Domain
+﻿namespace PatientsAPI.Domain
 {
-    public class Patients
+    public class Patient
     {
         public Guid PatientId { get; set; }
         public string Nom { get; set; }
