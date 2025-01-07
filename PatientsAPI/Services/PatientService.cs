@@ -1,6 +1,5 @@
 ﻿using PatientsAPI.Domain;
 using PatientsAPI.Domain.Dtos;
-using PatientsAPI.Domain.Enum;
 using PatientsAPI.Domain.IRepository;
 using PatientsAPI.Services.IServices;
 
@@ -60,7 +59,7 @@ namespace PatientsAPI.Services
                 Nom = patientDto.Nom,
                 Prenom = patientDto.Prenom,
                 DateDeNaissance = patientDto.DateDeNaissance,
-                GenreId = (int)patientDto.GenreType,
+                GenreId = patientDto.GenreType == "Homme" ? 1 : 2,
                 Adresse = patientDto.Adresse,
                 NumeroTelephone = patientDto.NumeroTelephone
             };
@@ -84,7 +83,7 @@ namespace PatientsAPI.Services
                 Nom = patient.Nom,
                 Prenom = patient.Prenom,
                 DateDeNaissance = patient.DateDeNaissance,
-                GenreType = (GenreType)patient.GenreId,
+                GenreType = patient.Genre.GenreLabel,
                 Adresse = patient.Adresse,
                 NumeroTelephone = patient.NumeroTelephone
             };

@@ -26,7 +26,9 @@ namespace PatientsAPI.Repository
 
         public async Task<List<Patient>> GetAllPatients()
         {
-            return await _context.Patients.ToListAsync();
+            return await _context.Patients
+                .Include(p => p.Genre)  
+                .ToListAsync();
         }
 
         public async Task<Patient> GetPatients(Guid id)

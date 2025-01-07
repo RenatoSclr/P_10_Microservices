@@ -1,8 +1,28 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
-}
+﻿@model List<PatientListViewModel>
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+<h2>Liste des Patients</h2>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Nom</th>
+            <th>Prénom</th>
+            <th>Genre</th>
+            <th>Actions</th> 
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var patient in Model)
+        {
+            <tr>
+                <td>@patient.Nom</td>
+                <td>@patient.Prenom</td>
+                <td>@patient.GenreType</td>
+                <td>
+                    <a asp-controller="Patient" asp-action="Details" asp-route-id="" class="btn btn-primary">
+                        Voir détails
+                    </a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
