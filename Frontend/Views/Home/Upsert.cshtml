@@ -1,0 +1,55 @@
+﻿@model CreateOrUpdatePatientViewModel
+
+@{
+    ViewData["Title"] = "Créer ou Mettre à jour un patient";
+}
+
+<h2 class="text-primary">@(Model.PatientId != Guid.Empty ? "Mise à jour d'un" : "Création d'un") patient</h2>
+
+<form asp-action="Upsert" method="post">
+    <input type="hidden" asp-for="PatientId" />
+    <div class="form-group">
+        <label for="Nom">Nom</label>
+        <input asp-for="Nom" class="form-control" id="Nom" placeholder="Entrez le nom" />
+        <span asp-validation-for="Nom" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label for="Prenom">Prénom</label>
+        <input asp-for="Prenom" class="form-control" id="Prenom" placeholder="Entrez le prénom" />
+        <span asp-validation-for="Prenom" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label for="DateDeNaissance">Date de naissance</label>
+        <input asp-for="DateDeNaissance" class="form-control" id="DateDeNaissance" type="date" />
+        <span asp-validation-for="DateDeNaissance" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label for="GenreType">Genre</label>
+        <select asp-for="GenreType" class="form-control" id="GenreType">
+            <option value="">-- Sélectionnez un genre --</option>
+            <option value="Homme">Homme</option>
+            <option value="Femme">Féminin</option>
+        </select>
+        <span asp-validation-for="GenreType" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label for="Adresse">Adresse</label>
+        <input asp-for="Adresse" class="form-control" id="Adresse" placeholder="Entrez l'adresse" />
+        <span asp-validation-for="Adresse" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label for="NumeroTelephone">Numéro de téléphone</label>
+        <input asp-for="NumeroTelephone" class="form-control" id="NumeroTelephone" placeholder="Entrez le numéro de téléphone" />
+        <span asp-validation-for="NumeroTelephone" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-primary mt-3">
+        @(Model.PatientId != Guid.Empty ? "Mettre à jour" : "Créer")
+    </button>
+    <a asp-action="Index" class="btn btn-secondary mt-3">Retour</a>
+</form>

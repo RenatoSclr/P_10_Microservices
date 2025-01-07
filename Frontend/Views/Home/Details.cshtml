@@ -1,5 +1,12 @@
 ﻿@model PatientDetailsViewModel
 
+@if (TempData["Message"] != null)
+{
+    <div class="alert alert-success">
+        @TempData["Message"]
+    </div>
+}
+
 <h2>Détails du Patient</h2>
 
 <div class="card mb-3">
@@ -10,7 +17,7 @@
         <p class="card-text"><strong>Adresse :</strong> @Model.Adresse</p>
         <p class="card-text"><strong>Téléphone :</strong> @Model.NumeroTelephone</p>
 
-        <a asp-controller="Home" asp-action="Edit" asp-route-id="@Model.PatientId" class="btn btn-warning">
+        <a asp-controller="Home" asp-action="Upsert" asp-route-id="@Model.PatientId" class="btn btn-warning">
             Mettre à jour
         </a>
     </div>

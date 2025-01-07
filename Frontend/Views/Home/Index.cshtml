@@ -1,8 +1,15 @@
 ﻿@model List<PatientListViewModel>
 
+@if (TempData["Message"] != null)
+{
+    <div class="alert alert-success">
+        @TempData["Message"]
+    </div>
+}
+
 <h2>Liste des Patients</h2>
 
-<a asp-controller="Home" asp-action="Create" class="btn btn-success mb-3">
+<a asp-controller="Home" asp-action="Upsert" class="btn btn-success mb-3">
     Ajouter un nouveau patient
 </a>
 
