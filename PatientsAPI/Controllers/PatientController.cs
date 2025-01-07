@@ -20,7 +20,7 @@ namespace PatientsAPI.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> CreatePatients([FromBody] PatientDTO patients)
+        public async Task<ActionResult> CreatePatients([FromBody] CreateOrUpdatePatientDTO patients)
         {
             if (!ModelState.IsValid)
             {
@@ -48,7 +48,7 @@ namespace PatientsAPI.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<ActionResult> UpdatePatients(Guid id, [FromBody] PatientDTO patients)
+        public async Task<ActionResult> UpdatePatients(Guid id, [FromBody] CreateOrUpdatePatientDTO patients)
         {
             if (!ModelState.IsValid)
             {

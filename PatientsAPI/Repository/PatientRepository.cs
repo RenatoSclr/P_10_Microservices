@@ -33,7 +33,8 @@ namespace PatientsAPI.Repository
 
         public async Task<Patient> GetPatients(Guid id)
         {
-            return await _context.Patients.FindAsync(id);
+            return await _context.Patients.Include(p => p.Genre) 
+                    .FirstOrDefaultAsync(p => p.PatientId == id); 
         }
 
         public async Task UpdatePatient(Patient patients)

@@ -13,7 +13,7 @@ namespace PatientsAPI.Services
             _repository = repository;
         }
 
-        public async Task AddPatient(PatientDTO patientDto)
+        public async Task AddPatient(CreateOrUpdatePatientDTO patientDto)
         {
             var patient = await MapToPatientToCreate(patientDto);
             await _repository.AddPatient(patient);
@@ -25,7 +25,7 @@ namespace PatientsAPI.Services
            await _repository.DeletePatient(patient);
            await _repository.Save();
         }
-        public async Task<List<PatientDTO>> GetAllPatients() 
+        public async Task<List<GetPatientDTO>> GetAllPatients() 
         {
             var patient = await _repository.GetAllPatients();
             return await MapToPatientDTOList(patient);
@@ -37,13 +37,13 @@ namespace PatientsAPI.Services
 
         }
 
-        public async Task<PatientDTO> GetPatientDTOById(Guid id)
+        public async Task<GetPatientDTO> GetPatientDTOById(Guid id)
         {
             var patient = await GetPatientById(id);
             return await MapToPatientDTO(patient);
         }
 
-        public async Task UpdatePatient(PatientDTO patientDto, Guid id)
+        public async Task UpdatePatient(CreateOrUpdatePatientDTO patientDto, Guid id)
         {
             var patient = await MapToPatientToUpdate(patientDto, await GetPatientById(id));
             await _repository.UpdatePatient(patient);
@@ -52,7 +52,7 @@ namespace PatientsAPI.Services
 
 
 
-        private async Task<Patient> MapToPatientToCreate(PatientDTO patientDto) 
+        private async Task<Patient> MapToPatientToCreate(CreateOrUpdatePatientDTO patientDto) 
         {
             return new Patient
             {
@@ -65,7 +65,7 @@ namespace PatientsAPI.Services
             };
         }
 
-        private async Task<Patient> MapToPatientToUpdate(PatientDTO patientDto, Patient existingPatient)
+        private async Task<Patient> MapToPatientToUpdate(CreateOrUpdatePatientDTO patientDto, Patient existingPatient)
         {
             var patient = existingPatient;
             patient.Nom = patientDto.Nom;
@@ -76,10 +76,11 @@ namespace PatientsAPI.Services
             return patient;
         }
 
-        private async Task<PatientDTO> MapToPatientDTO(Patient patient)
+        private async Task<GetPatientDTO> MapToPatientDTO(Patient patient)
         {
-            return new PatientDTO
+            return new GetPatientDTO
             {
+                PatientId = patient.PatientId,
                 Nom = patient.Nom,
                 Prenom = patient.Prenom,
                 DateDeNaissance = patient.DateDeNaissance,
@@ -89,9 +90,9 @@ namespace PatientsAPI.Services
             };
         }
 
-        private async Task<List<PatientDTO>> MapToPatientDTOList(List<Patient> patients)
+        private async Task<List<GetPatientDTO>> MapToPatientDTOList(List<Patient> patients)
         {
-            var patientDtoList = new List<PatientDTO>();
+            var patientDtoList = new List<GetPatientDTO>();
 
             foreach (var patient in patients)
             {

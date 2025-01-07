@@ -1,0 +1,38 @@
+﻿@model PatientDetailsViewModel
+
+<h2>Détails du Patient</h2>
+
+<div class="card mb-3">
+    <div class="card-body">
+        <h5 class="card-title">@Model.Nom @Model.Prenom</h5>
+        <p class="card-text"><strong>Date de naissance :</strong> @Model.DateDeNaissance.ToShortDateString()</p>
+        <p class="card-text"><strong>Genre :</strong> @Model.GenreType</p>
+        <p class="card-text"><strong>Adresse :</strong> @Model.Adresse</p>
+        <p class="card-text"><strong>Téléphone :</strong> @Model.NumeroTelephone</p>
+
+        <a asp-controller="Home" asp-action="Edit" asp-route-id="@Model.PatientId" class="btn btn-warning">
+            Mettre à jour
+        </a>
+    </div>
+</div>
+
+<hr />
+
+<ul class="nav nav-tabs">
+    <li class="nav-item">
+        <a class="nav-link active" href="#">Détails</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="#">Onglet 2 (À développer)</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="#">Onglet 3 (À développer)</a>
+    </li>
+</ul>
+
+
+<div class="tab-content mt-3">
+    <div class="tab-pane fade show active" id="details">
+        <p>Ici se trouvent les détails du patient.</p>
+    </div>
+</div>

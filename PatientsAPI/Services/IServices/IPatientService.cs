@@ -5,11 +5,11 @@ namespace PatientsAPI.Services.IServices
 {
     public interface IPatientService
     {
-        Task<List<PatientDTO>> GetAllPatients();
+        Task<List<GetPatientDTO>> GetAllPatients();
         Task<Patient> GetPatientById(Guid id);
-        Task<PatientDTO> GetPatientDTOById(Guid id);
-        Task AddPatient(PatientDTO patient);
-        Task UpdatePatient(PatientDTO patient, Guid id);
+        Task<GetPatientDTO> GetPatientDTOById(Guid id);
+        Task AddPatient(CreateOrUpdatePatientDTO patient);
+        Task UpdatePatient(CreateOrUpdatePatientDTO patient, Guid id);
         Task DeletePatient(Patient patient);
     }
 }

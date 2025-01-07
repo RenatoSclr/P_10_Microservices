@@ -1,13 +1,18 @@
 ﻿@model List<PatientListViewModel>
 
 <h2>Liste des Patients</h2>
-<table class="table">
+
+<a asp-controller="Home" asp-action="Create" class="btn btn-success mb-3">
+    Ajouter un nouveau patient
+</a>
+
+<table class="table table-striped">
     <thead>
         <tr>
             <th>Nom</th>
             <th>Prénom</th>
             <th>Genre</th>
-            <th>Actions</th> 
+            <th>Actions</th>
         </tr>
     </thead>
     <tbody>
@@ -18,7 +23,7 @@
                 <td>@patient.Prenom</td>
                 <td>@patient.GenreType</td>
                 <td>
-                    <a asp-controller="Patient" asp-action="Details" asp-route-id="" class="btn btn-primary">
+                    <a asp-controller="Home" asp-action="Details" asp-route-id="@patient.PatientId" class="btn btn-primary">
                         Voir détails
                     </a>
                 </td>
