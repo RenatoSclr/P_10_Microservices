@@ -28,7 +28,7 @@ namespace PatientsAPI.Controllers
             }
 
             await _patientService.AddPatient(patients);
-            return Ok($"Le patients {patients.Nom} a ete cree avec succee");
+            return Ok(patients);
         }
 
         [HttpGet("{id}")]

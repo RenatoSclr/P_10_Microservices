@@ -30,7 +30,7 @@
         <label for="GenreType">Genre</label>
         <select asp-for="GenreType" class="form-control" id="GenreType">
             <option value="">-- Sélectionnez un genre --</option>
-            <option value="Homme">Homme</option>
+            <option value="Homme">Masculin</option>
             <option value="Femme">Féminin</option>
         </select>
         <span asp-validation-for="GenreType" class="text-danger"></span>
@@ -51,5 +51,9 @@
     <button type="submit" class="btn btn-primary mt-3">
         @(Model.PatientId != Guid.Empty ? "Mettre à jour" : "Créer")
     </button>
-    <a asp-action="Index" class="btn btn-secondary mt-3">Retour</a>
+    <a asp-action="@(Model.PatientId != Guid.Empty ? "Details" : "Index")"
+       asp-route-id="@(Model.PatientId != Guid.Empty ? Model.PatientId.ToString() : null)"
+       class="btn btn-secondary mt-3">
+        Retour
+    </a>
 </form>

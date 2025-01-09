@@ -1,12 +1,23 @@
+using Frontend.Models;
 using Frontend.Services;
 using Frontend.Services.Interface;
+using Microsoft.Extensions.Options;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services.AddHttpContextAccessor();
+builder.Services.Configure<ServiceUrlOptions>(builder.Configuration.GetSection("ServiceUrl"));
 
-builder.Services.AddScoped<HttpClient>();
+builder.Services.AddHttpClient("PatientAPI", (serviceProvider, client) =>
+{
+    var options = serviceProvider.GetRequiredService<IOptions<ServiceUrlOptions>>().Value;
+    client.BaseAddress = new Uri(options.Gateway);
+    client.DefaultRequestHeaders.Add("Accept", "application/json");
+    client.DefaultRequestHeaders.Add("User-Agent", "FrontendApp");
+});
+
 builder.Services.AddScoped<IPatientService, PatientService>();
 
 var app = builder.Build();

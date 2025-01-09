@@ -1,4 +1,5 @@
 ﻿using System.Text;
+using CSharpFunctionalExtensions;
 using Frontend.Services.Interface;
 using Frontend.ViewModel;
 using Newtonsoft.Json;
@@ -7,52 +8,78 @@ namespace Frontend.Services
 {
     public class PatientService : IPatientService
     {
-        private readonly HttpClient _httpClient;
+        private readonly IHttpClientFactory _httpClientFactory;
 
-        public PatientService(HttpClient httpClient)
+        public PatientService(IHttpClientFactory httpClientFactory)
         {
-            _httpClient = httpClient;
+            _httpClientFactory = httpClientFactory;
         }
 
-        public async Task<HttpResponseMessage> GetPatientFromPatientAPI(Guid id)
+        private async Task<HttpClient> GetClient()
         {
-            return await _httpClient.GetAsync($"https://localhost:5000/patients/{id}");
+            return _httpClientFactory.CreateClient("PatientAPI");
         }
 
-        public async Task<HttpResponseMessage> GetPatientListFromPatientAPI()
+        public async Task<Result<PatientDetailsViewModel>> GetDetailsPatient(Guid id)
         {
-            return await _httpClient.GetAsync("https://localhost:5000/patients");
-        }
-
-        public async Task<HttpResponseMessage> AddPatientToPatientAPI(CreateOrUpdatePatientViewModel patient)
-        {
-            var content = SerializeToHttpContent(patient);
-            return await _httpClient.PostAsync("https://localhost:5000/patients", content);
-        }
-
-        public async Task<HttpResponseMessage> UpdatePatientInPatientAPI(Guid id, CreateOrUpdatePatientViewModel patient)
-        {
-            var content = SerializeToHttpContent(patient);
-            return await _httpClient.PutAsync($"https://localhost:5000/patients/{id}", content);
-        }
-
-        public async Task<List<PatientListViewModel>> DeserializeToPatientListViewModel(HttpResponseMessage response)
-        {
-            var patientData = await response.Content.ReadAsStringAsync();
-            return JsonConvert.DeserializeObject<List<PatientListViewModel>>(patientData);
-        }
-
-        public async Task<PatientDetailsViewModel> DeserializeToPatientDetailsViewModel(HttpResponseMessage response)
-        {
+            var client = await GetClient();
+            var response = await client.GetAsync($"/patients/{id}");
+            if (!response.IsSuccessStatusCode)
+            {
+                return Result.Failure<PatientDetailsViewModel>("Error");
+            }
             var patientData = await response.Content.ReadAsStringAsync();
             return JsonConvert.DeserializeObject<PatientDetailsViewModel>(patientData);
         }
 
-        public async Task<CreateOrUpdatePatientViewModel> DeserializeToCreateOrUpdatePatientViewModel(HttpResponseMessage response)
+        public async Task<Result<CreateOrUpdatePatientViewModel>> GetUpdatePatient(Guid id)
         {
+            var client = await GetClient();
+            var response = await client.GetAsync($"/patients/{id}");
+            if (!response.IsSuccessStatusCode)
+            {
+                return Result.Failure<CreateOrUpdatePatientViewModel>("Error");
+            }
             var patientData = await response.Content.ReadAsStringAsync();
             return JsonConvert.DeserializeObject<CreateOrUpdatePatientViewModel>(patientData);
         }
+
+        public async Task<Result<List<PatientListViewModel>>> GetPatientList()
+        {
+            var client = await GetClient();
+            var response = await client.GetAsync("/patients");
+            if (!response.IsSuccessStatusCode)
+            {
+                return Result.Failure<List<PatientListViewModel>>("Error");
+            }
+            var patientData = await response.Content.ReadAsStringAsync();
+            return JsonConvert.DeserializeObject<List<PatientListViewModel>>(patientData);
+        }
+
+        public async Task<Result> AddPatient(CreateOrUpdatePatientViewModel patient)
+        {
+            var client = await GetClient();
+            var content = SerializeToHttpContent(patient);
+            var response = await client.PostAsync("/patients", content);
+            if (!response.IsSuccessStatusCode)
+            {
+                return Result.Failure("Error");
+            }
+            return Result.Success();
+        }
+
+        public async Task<Result> UpdatePatient(Guid id, CreateOrUpdatePatientViewModel patient)
+        {
+            var client = await GetClient();
+            var content = SerializeToHttpContent(patient);
+            var response = await client.PutAsync($"/patients/{id}", content);
+            if (!response.IsSuccessStatusCode)
+            {
+                return Result.Failure("Error");
+            }
+            return Result.Success();
+        }
+
 
         private HttpContent SerializeToHttpContent(CreateOrUpdatePatientViewModel patientToUpsert)
         {

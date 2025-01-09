@@ -19,10 +19,11 @@ namespace Frontend.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var response = await _patientService.GetPatientListFromPatientAPI();
-            if (response.IsSuccessStatusCode)
+            var response = await _patientService.GetPatientList();
+            
+            if (response.IsSuccess)
             {
-                return View(await _patientService.DeserializeToPatientListViewModel(response));
+                return View(response.Value);
             }
 
             return View("Error");
@@ -30,10 +31,10 @@ namespace Frontend.Controllers
 
         public async Task<IActionResult> Details(Guid id)
         {
-            var response = await _patientService.GetPatientFromPatientAPI(id);
-            if (response.IsSuccessStatusCode)
+            var response = await _patientService.GetDetailsPatient(id);
+            if (response.IsSuccess)
             {
-                return View(await _patientService.DeserializeToPatientDetailsViewModel(response));
+                return View(response.Value);
             }
 
             return View("Error");
@@ -48,10 +49,10 @@ namespace Frontend.Controllers
             }
             else
             {
-                var response = await _patientService.GetPatientFromPatientAPI(id.Value);
-                if (response.IsSuccessStatusCode)
+                var response = await _patientService.GetUpdatePatient(id.Value);
+                if (response.IsSuccess)
                 {
-                    return View(await _patientService.DeserializeToCreateOrUpdatePatientViewModel(response));
+                    return View(response.Value);
                 }
                 return View("Error");
             }
@@ -64,8 +65,8 @@ namespace Frontend.Controllers
             {
                 if (id == null || id == Guid.Empty) 
                 {
-                    var response = await _patientService.AddPatientToPatientAPI(patient);
-                    if (response.IsSuccessStatusCode)
+                    var response = await _patientService.AddPatient(patient);
+                    if (response.IsSuccess)
                     {
                         TempData["Message"] = $"Le patient {patient.Nom} {patient.Prenom} a été créé avec succès.";
                         return RedirectToAction("Index");
@@ -73,8 +74,8 @@ namespace Frontend.Controllers
                 }
                 else 
                 {
-                    var response = await _patientService.UpdatePatientInPatientAPI(id.Value, patient);
-                    if (response.IsSuccessStatusCode)
+                    var response = await _patientService.UpdatePatient(id.Value, patient);
+                    if (response.IsSuccess)
                     {
                         TempData["Message"] = $"Le patient {patient.Nom} {patient.Prenom} a été mis à jour avec succès.";
                         return RedirectToAction("Details", new { Id = id.Value });
