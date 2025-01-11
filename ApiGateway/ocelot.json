@@ -1,9 +1,21 @@
 {
-  // Patients Web API
   "Routes": [
+    {
+      "UpstreamPathTemplate": "/Login",
+      "UpstreamHttpMethod": [ "Post"],
+      "DownstreamPathTemplate": "/auth/login",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5002
+        }
+      ]
+    },
     {
       "UpstreamPathTemplate": "/Patients",
       "UpstreamHttpMethod": [ "Post", "Get" ],
+      "DownstreamPathTemplate": "/Patients",
       "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
         {
@@ -11,11 +23,14 @@
           "Port": 5001
         }
       ],
-      "DownstreamPathTemplate": "/Patients"
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer"
+      }
     },
     {
       "UpstreamPathTemplate": "/Patients/{id}",
       "UpstreamHttpMethod": [ "Put", "Get", "Delete" ],
+      "DownstreamPathTemplate": "/Patients/{id}",
       "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
         {
@@ -23,7 +38,9 @@
           "Port": 5001
         }
       ],
-      "DownstreamPathTemplate": "/Patients/{id}"
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer"
+      }
     }
   ],
   "GlobalConfiguration": {
