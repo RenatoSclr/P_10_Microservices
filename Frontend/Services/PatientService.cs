@@ -63,6 +63,9 @@ namespace Frontend.Services
 
         public async Task<Result> AddPatient(CreateOrUpdatePatientViewModel patient, string token)
         {
+            patient.Adresse ??= "";
+            patient.NumeroTelephone ??= "";
+
             var client = await GetAuthorizedClient(token);
             var content = SerializeToHttpContent(patient);
 
@@ -78,6 +81,9 @@ namespace Frontend.Services
 
         public async Task<Result> UpdatePatient(Guid id, CreateOrUpdatePatientViewModel patient, string token)
         {
+            patient.Adresse ??= "";
+            patient.NumeroTelephone ??= "";
+
             var client = await GetAuthorizedClient(token);
             var content = SerializeToHttpContent(patient);
 

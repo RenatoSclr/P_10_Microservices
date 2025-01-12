@@ -14,8 +14,8 @@
         <h5 class="card-title">@Model.Nom @Model.Prenom</h5>
         <p class="card-text"><strong>Date de naissance :</strong> @Model.DateDeNaissance.ToShortDateString()</p>
         <p class="card-text"><strong>Genre :</strong> @Model.GenreType</p>
-        <p class="card-text"><strong>Adresse :</strong> @Model.Adresse</p>
-        <p class="card-text"><strong>Téléphone :</strong> @Model.NumeroTelephone</p>
+        <p class="card-text"><strong>Adresse :</strong> @(string.IsNullOrWhiteSpace(Model.Adresse) ? "Adresse non renseignée" : Model.Adresse)</p>
+        <p class="card-text"><strong>Téléphone :</strong> @(string.IsNullOrWhiteSpace(Model.NumeroTelephone) ? "Téléphone non renseigné" : Model.NumeroTelephone)</p>
 
         <a asp-controller="Home" asp-action="Upsert" asp-route-id="@Model.PatientId" class="btn btn-warning">
             Mettre à jour
