@@ -10,9 +10,9 @@ namespace Frontend.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private readonly IPatientService _patientService;
-        private readonly TokenProvider _tokenProvider;
+        private readonly ITokenProvider _tokenProvider;
 
-        public HomeController(ILogger<HomeController> logger, IPatientService patientService, TokenProvider tokenProvider)
+        public HomeController(ILogger<HomeController> logger, IPatientService patientService, ITokenProvider tokenProvider)
         {
             _logger = logger;
             _patientService = patientService;

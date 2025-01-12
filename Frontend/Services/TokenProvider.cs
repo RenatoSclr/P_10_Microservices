@@ -24,6 +24,11 @@ public class TokenProvider : ITokenProvider
         });
     }
 
+    public void ClearToken()
+    {
+        _httpContextAccessor.HttpContext?.Response.Cookies.Delete("auth_token");
+    }
+
     public bool IsTokenValid(string token)
     {
         try

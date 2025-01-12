@@ -9,15 +9,15 @@ using System.Text;
 public class AuthService : IAuthService
 {
     private readonly IHttpClientFactory _httpClientFactory;
-    private readonly TokenProvider _tokenProvider;
+    private readonly ITokenProvider _tokenProvider;
 
-    public AuthService(IHttpClientFactory httpClientFactory, TokenProvider tokenProvider)
+    public AuthService(IHttpClientFactory httpClientFactory, ITokenProvider tokenProvider)
     {
         _httpClientFactory = httpClientFactory;
         _tokenProvider = tokenProvider;
     }
 
-    public async Task<Result<string>> GetToken(LoginViewModel request)
+    public async Task<Result<string>> SignInAsync(LoginViewModel request)
     {
         var client = _httpClientFactory.CreateClient("Gateway");
 

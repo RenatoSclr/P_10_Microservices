@@ -10,12 +10,10 @@ namespace Frontend.Services
     public class PatientService : IPatientService
     {
         private readonly IHttpClientFactory _httpClientFactory;
-        private readonly TokenProvider _tokenProvider;
 
-        public PatientService(IHttpClientFactory httpClientFactory, TokenProvider tokenProvider)
+        public PatientService(IHttpClientFactory httpClientFactory)
         {
             _httpClientFactory = httpClientFactory;
-            _tokenProvider = tokenProvider;
         }
 
         public async Task<Result<PatientDetailsViewModel>> GetDetailsPatient(Guid id, string token)

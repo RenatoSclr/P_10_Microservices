@@ -5,6 +5,6 @@ namespace Frontend.Services.Interface
 {
     public interface IAuthService
     {
-        Task<Result<string>> GetToken(LoginViewModel request);
+        Task<Result<string>> SignInAsync(LoginViewModel request);
     }
 }
