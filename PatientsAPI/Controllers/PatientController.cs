@@ -64,7 +64,7 @@ namespace PatientsAPI.Controllers
         public async Task<ActionResult> DeletePatient(Guid id)
         {
             var patient = await _patientService.GetPatientById(id);
-            if (patient == null)
+            if (patient is null)
             {
                 return NotFound($"Le patient avec l'id {id} est introuvable");
             }

@@ -1,3 +1,9 @@
+using NotesAPI.Data;
+using NotesAPI.Domain.IRepository;
+using NotesAPI.Repository;
+using NotesAPI.Services;
+using NotesAPI.Services.IServices;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -6,6 +12,9 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddSingleton<NoteDbContext>();
+builder.Services.AddScoped<INoteRepository, NoteRepository>();
+builder.Services.AddScoped<INoteService, NoteService>();
 
 var app = builder.Build();
 
