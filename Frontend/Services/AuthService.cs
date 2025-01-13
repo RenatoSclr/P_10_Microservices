@@ -1,9 +1,7 @@
 ﻿using CSharpFunctionalExtensions;
 using Frontend.Services.Interface;
-using Frontend.Services;
 using Frontend.ViewModel;
 using Newtonsoft.Json;
-using System.Net.Http.Headers;
 using System.Text;
 
 public class AuthService : IAuthService
@@ -17,7 +15,7 @@ public class AuthService : IAuthService
         _tokenProvider = tokenProvider;
     }
 
-    public async Task<Result<string>> SignInAsync(LoginViewModel request)
+    public async Task<Result> SignInAsync(LoginViewModel request)
     {
         var client = _httpClientFactory.CreateClient("Gateway");
 
@@ -36,6 +34,6 @@ public class AuthService : IAuthService
 
         _tokenProvider.StoreTokenAsCookie(token);
 
-        return Result.Success(token);
+        return Result.Success();
     }
 }

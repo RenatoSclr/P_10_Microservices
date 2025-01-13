@@ -1,10 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.IdentityModel.Tokens;
-using PatientsAPI.Domain;
+﻿using Microsoft.AspNetCore.Mvc;
 using PatientsAPI.Domain.Dtos;
-using PatientsAPI.Services;
 using PatientsAPI.Services.IServices;
 
 namespace PatientsAPI.Controllers

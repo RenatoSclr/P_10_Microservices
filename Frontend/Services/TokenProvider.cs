@@ -1,5 +1,4 @@
 ﻿using Frontend.Services.Interface;
-using Microsoft.AspNetCore.Http;
 using System.IdentityModel.Tokens.Jwt;
 
 public class TokenProvider : ITokenProvider
