@@ -1,4 +1,4 @@
-﻿namespace Frontend.ViewModel
+﻿namespace Frontend.ViewModel.PatientViewModel
 {
     public class PatientListViewModel
     {

@@ -1,6 +1,6 @@
 using Frontend.Models;
 using Frontend.Services.Interface;
-using Frontend.ViewModel;
+using Frontend.ViewModel.PatientViewModel;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 

@@ -1,9 +1,6 @@
-﻿using Frontend.Models;
-using Frontend.ViewModel.NotesViewModel;
-
-namespace Frontend.ViewModel
+﻿namespace Frontend.Models
 {
-    public class PatientDetailsViewModel
+    public class Patient
     {
         public Guid PatientId { get; set; }
         public string Nom { get; set; }
@@ -12,7 +9,5 @@ namespace Frontend.ViewModel
         public string GenreType { get; set; }
         public string Adresse { get; set; }
         public string NumeroTelephone { get; set; }
-        public IEnumerable<NoteSummary> Notes { get; set; }
-
     }
 }

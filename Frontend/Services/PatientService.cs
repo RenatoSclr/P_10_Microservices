@@ -1,8 +1,11 @@
 ﻿using System.Net.Http.Headers;
 using System.Text;
 using CSharpFunctionalExtensions;
+using Frontend.Models;
 using Frontend.Services.Interface;
 using Frontend.ViewModel;
+using Frontend.ViewModel.NotesViewModel;
+using Frontend.ViewModel.PatientViewModel;
 using Newtonsoft.Json;
 
 namespace Frontend.Services
@@ -10,10 +13,12 @@ namespace Frontend.Services
     public class PatientService : IPatientService
     {
         private readonly IHttpClientFactory _httpClientFactory;
+        private readonly INoteService _noteService;
 
-        public PatientService(IHttpClientFactory httpClientFactory)
+        public PatientService(IHttpClientFactory httpClientFactory, INoteService noteService)
         {
             _httpClientFactory = httpClientFactory;
+            _noteService = noteService;
         }
 
         public async Task<Result<PatientDetailsViewModel>> GetDetailsPatient(Guid id, string token)
@@ -28,7 +33,16 @@ namespace Frontend.Services
             }
 
             var patientData = await response.Content.ReadAsStringAsync();
-            return JsonConvert.DeserializeObject<PatientDetailsViewModel>(patientData);
+            var infoPatient = JsonConvert.DeserializeObject<Patient>(patientData);
+
+            var patientNotes = await _noteService.GetPatientNotes(id, client);
+
+            if (patientNotes.IsFailure)
+            {
+                return Result.Failure<PatientDetailsViewModel>($"Une erreur est survenue en essayant d'obtenir l'historique des notes du patient : {infoPatient.Nom} {infoPatient.Prenom}");
+            }
+
+            return await MergeToPatientDetailsViewModel(infoPatient, patientNotes.Value);
         }
 
         public async Task<Result<CreateOrUpdatePatientViewModel>> GetUpdatePatient(Guid id, string token)
@@ -108,6 +122,21 @@ namespace Frontend.Services
             var client = _httpClientFactory.CreateClient("Gateway");
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
             return client;
+        }
+
+        private async Task<PatientDetailsViewModel> MergeToPatientDetailsViewModel(Patient patient, List<NoteSummary> notes)
+        {
+            return new PatientDetailsViewModel
+            {
+                PatientId = patient.PatientId,
+                Adresse = patient.Adresse,
+                DateDeNaissance = patient.DateDeNaissance,
+                GenreType = patient.GenreType,
+                Notes = notes,
+                Nom = patient.Nom,
+                NumeroTelephone = patient.NumeroTelephone,
+                Prenom = patient.Nom
+            };
         }
     }
 }

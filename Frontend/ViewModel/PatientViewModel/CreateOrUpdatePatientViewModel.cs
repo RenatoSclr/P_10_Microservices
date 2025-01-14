@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Frontend.ViewModel
+namespace Frontend.ViewModel.PatientViewModel
 {
     public class CreateOrUpdatePatientViewModel
     {
@@ -17,7 +17,7 @@ namespace Frontend.ViewModel
 
         [Required(ErrorMessage = "Vous devez renseigné le genre du patient")]
         public string GenreType { get; set; }
-        public string? Adresse { get; set; } 
-        public string? NumeroTelephone { get; set; } 
+        public string? Adresse { get; set; }
+        public string? NumeroTelephone { get; set; }
     }
 }

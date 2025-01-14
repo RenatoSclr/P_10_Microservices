@@ -1,5 +1,7 @@
 ﻿using CSharpFunctionalExtensions;
+using Frontend.Models;
 using Frontend.ViewModel;
+using Frontend.ViewModel.PatientViewModel;
 
 namespace Frontend.Services.Interface
 {
