@@ -15,6 +15,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddSingleton<NoteDbContext>();
 builder.Services.AddScoped<INoteRepository, NoteRepository>();
 builder.Services.AddScoped<INoteService, NoteService>();
+builder.Services.AddSingleton<DatabaseSeeder>();
 
 var app = builder.Build();
 
@@ -23,6 +24,12 @@ if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
+}
+
+using (var scope = app.Services.CreateScope())
+{
+    var seeder = scope.ServiceProvider.GetRequiredService<DatabaseSeeder>();
+    await seeder.SeedAsync();
 }
 
 app.UseHttpsRedirection();
