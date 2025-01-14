@@ -11,8 +11,15 @@ namespace Frontend.Services
 {
     public class NoteService : INoteService
     {
+        private readonly IHttpService _httpService;
+
+        public NoteService(IHttpService httpService)
+        {
+            _httpService = httpService;
+        }
         public Task<Result> CreateNote()
         {
+
             throw new NotImplementedException();
         }
 
@@ -26,19 +33,14 @@ namespace Frontend.Services
             throw new NotImplementedException();
         }
 
-        public async Task<Result<List<NoteSummary>>> GetPatientNotes(Guid patientId, HttpClient client)
+        public async Task<Result<List<NoteSummary>>> GetPatientNotes(Guid patientId, string token)
         {
-            var response = await client.GetAsync($"/note/patient/{patientId}");
+            var notesResult = await _httpService.GetAsync<List<Note>>($"/note/patient/{patientId}", token);
 
-            if (!response.IsSuccessStatusCode)
-            {
-                return Result.Failure<List<NoteSummary>>("Error");
-            }
+            if (notesResult.IsFailure)
+                return Result.Failure<List<NoteSummary>>("Erreur lors de la récupération des notes.");
 
-            var patientNotesData = await response.Content.ReadAsStringAsync();
-            var patientNote = JsonConvert.DeserializeObject<List<Note>>(patientNotesData);
-
-            return await MapToNoteSummary(patientNote);
+            return await MapToNoteSummary(notesResult.Value);
         }
 
         public Task<Result> UpdateNote()

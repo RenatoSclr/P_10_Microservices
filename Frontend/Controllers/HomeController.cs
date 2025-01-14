@@ -64,12 +64,13 @@ namespace Frontend.Controllers
                 return RedirectToAction("Login", "Account");
             }
 
-            if (id == null)
+            if (!id.HasValue)
             {
                 return View(new CreateOrUpdatePatientViewModel());
             }
 
             var response = await _patientService.GetUpdatePatient(id.Value, token);
+
             if (response.IsSuccess)
             {
                 return View(response.Value);
@@ -77,6 +78,7 @@ namespace Frontend.Controllers
 
             return RedirectToAction("Error");
         }
+
 
         [HttpPost]
         public async Task<IActionResult> Upsert(Guid? id, CreateOrUpdatePatientViewModel patient)
@@ -109,8 +111,6 @@ namespace Frontend.Controllers
                     }
                 }
             }
-
-            TempData["ErrorMessage"] = "Une erreur s'est produite lors de l'enregistrement du patient.";
             return View(patient);
         }
 
