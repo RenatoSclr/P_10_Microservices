@@ -55,5 +55,12 @@ namespace NotesAPI.Controllers
             var result = await _noteService.DeleteNote(id);
             return result.IsSuccess ? Ok("Note supprimée avec succès.") : NotFound(result.Error);
         }
+
+        [HttpDelete("patient/{id}")]
+        public async Task<IActionResult> DeleteAllPatientNote(Guid id)
+        {
+            var result = await _noteService.DeleteAllNotesByPatientId(id);
+            return result.IsSuccess ? Ok("Note supprimée avec succès.") : NotFound(result.Error);
+        }
     }
 }

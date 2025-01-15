@@ -9,5 +9,6 @@ namespace NotesAPI.Domain.IRepository
         Task<Result> AddNote(Note note);
         Task<Result> UpdateNote(Note note);
         Task<Result> DeleteNote(Guid id);
+        Task<Result> DeleteAllNotesByPatientId(Guid patientId);
     }
 }

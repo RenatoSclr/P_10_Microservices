@@ -4,6 +4,7 @@ using Frontend.ViewModel.NotesViewModel;
 using Frontend.ViewModel.PatientViewModel;
 using Frontend.ViewModel;
 using Frontend.Models;
+using Microsoft.IdentityModel.Tokens;
 
 public class PatientService : IPatientService
 {
@@ -73,6 +74,8 @@ public class PatientService : IPatientService
 
         if (result.IsFailure)
             return Result.Failure("Erreur lors de la suppression du patient.");
+
+        var deleteNoteResult = await _noteService.DeleteAllNotesByPatientId(id, token);
 
         return Result.Success();
     }

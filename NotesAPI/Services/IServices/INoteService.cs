@@ -10,6 +10,7 @@ namespace NotesAPI.Services.IServices
         Task<Result<List<NoteDTO>>> GetAllPatientNotesDTO(Guid PatientId);
         Task<Result> AddNote(CreateNoteDTO note);
         Task<Result> DeleteNote(Guid id);
-        Task<Result> UpdateNote(Guid id, UpdateNoteDTO note); 
+        Task<Result> UpdateNote(Guid id, UpdateNoteDTO note);
+        Task<Result> DeleteAllNotesByPatientId(Guid patientId);
     }
 }

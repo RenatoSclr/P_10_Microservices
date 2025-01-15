@@ -12,5 +12,6 @@ namespace Frontend.Services.Interface
         Task<Result<CreateOrUpdatePatientViewModel>> GetUpdatePatient(Guid id, string token);
         Task<Result> AddPatient(CreateOrUpdatePatientViewModel patient, string token);
         Task<Result> UpdatePatient(Guid id, CreateOrUpdatePatientViewModel patient, string token);
+        Task<Result> DeletePatient(Guid id, string token);
     }
 }

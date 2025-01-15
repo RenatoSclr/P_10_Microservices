@@ -47,5 +47,28 @@ namespace Frontend.Controllers
 
             return RedirectToAction("Details", "Home", new {id = model.PatientId});
         }
+
+        [HttpPost]
+        public async Task<IActionResult> DeleteNote(Guid noteId, Guid patientId)
+        {
+            var token = Request.Cookies["auth_token"];
+            if (string.IsNullOrEmpty(token))
+            {
+                return RedirectToAction("Login", "Account");
+            }
+
+            var result = await _noteService.DeleteNote(noteId, token);
+
+            if (result.IsFailure)
+            {
+                TempData["Message"] = result.Error;
+            }
+            else
+            {
+                TempData["Message"] = "Note supprimée avec succès!";
+            }
+
+            return RedirectToAction("Details", "Home", new { id = patientId });
+        }
     }
 }

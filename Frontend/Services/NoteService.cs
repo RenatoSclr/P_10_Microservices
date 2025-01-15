@@ -30,9 +30,22 @@ namespace Frontend.Services
         }
 
 
-        public Task<Result> DeleteNote()
+        public async Task<Result> DeleteNote(Guid noteId, string token)
         {
-            throw new NotImplementedException();
+            var result = await _httpService.DeleteAsync($"/note/{noteId}", token);
+            if (result.IsFailure)
+                return Result.Failure("Erreur lors de la suppression de la note.");
+
+            return Result.Success();
+        }
+
+        public async Task<Result> DeleteAllNotesByPatientId(Guid id, string token)
+        {
+            var result = await _httpService.DeleteAsync($"note/patient/{id}", token);
+            if (result.IsFailure)
+                return Result.Failure("Erreur lors de la suppression des notes du patient.");
+
+            return Result.Success();
         }
 
         public async Task<Result<List<NoteSummary>>> GetPatientNotes(Guid patientId, string token)
@@ -49,6 +62,7 @@ namespace Frontend.Services
         {
             return notes.Select(note => new NoteSummary
             {
+                noteId = note.NoteId,
                 Contenu = note.Contenu,
                 DateCreation = note.DateCreatiom
             }).ToList();

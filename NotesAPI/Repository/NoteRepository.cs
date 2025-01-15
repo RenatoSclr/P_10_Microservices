@@ -63,6 +63,25 @@ namespace NotesAPI.Repository
             }
         }
 
+        public async Task<Result> DeleteAllNotesByPatientId(Guid patientId)
+        {
+            try
+            {
+                var filter = Builders<Note>.Filter.Eq(n => n.PatientId, patientId);
+                var result = await _context.Note.DeleteManyAsync(filter);
+
+                if (result.DeletedCount == 0)
+                    return Result.Failure("No notes found for the specified patient");
+
+                return Result.Success($"Successfully deleted {result.DeletedCount} notes for the patient.");
+            }
+            catch (Exception ex)
+            {
+                return Result.Failure($"An error occurred while deleting notes for the patient: {ex.Message}");
+            }
+        }
+
+
         public async Task<Result<Note>> GetNoteById(Guid id)
         {
             try

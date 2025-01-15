@@ -114,6 +114,30 @@ namespace Frontend.Controllers
             return View(patient);
         }
 
+        [HttpPost]
+        public async Task<IActionResult> DeletePatient(Guid patientId)
+        {
+            var token = Request.Cookies["auth_token"];
+
+            if (string.IsNullOrEmpty(token) || !_tokenProvider.IsTokenValid(token))
+            {
+                return RedirectToAction("Login", "Account");
+            }
+
+            var result = await _patientService.DeletePatient(patientId, token);
+
+            if (result.IsFailure)
+            {
+                TempData["Message"] = "Échec de la suppression du patient. " + result.Error;
+            }
+            else
+            {
+                TempData["Message"] = "Patient supprimé avec succès.";
+            }
+
+            return RedirectToAction("Index", "Home");
+        }
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {

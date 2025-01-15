@@ -34,6 +34,15 @@ namespace NotesAPI.Services
             return await _noteRepository.DeleteNote(noteId);
         }
 
+        public async Task<Result> DeleteAllNotesByPatientId(Guid patientId)
+        {
+            var result = await _noteRepository.DeleteAllNotesByPatientId(patientId);
+            if (result.IsFailure)
+                return Result.Failure(result.Error);
+
+            return Result.Success();
+        }
+
         public async Task<Result<NoteDTO>> GetNoteDTOById(Guid id)
         {
             var noteResult = await _noteRepository.GetNoteById(id);
@@ -107,5 +116,7 @@ namespace NotesAPI.Services
                 DateCreatiom = note.DateCreatiom
             };
         }
+
+        
     }
 }
