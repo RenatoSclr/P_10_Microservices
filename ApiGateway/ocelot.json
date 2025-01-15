@@ -44,8 +44,23 @@
     },
     {
       "UpstreamPathTemplate": "/note/patient/{id}",
-      "UpstreamHttpMethod": [ "Post", "Get" ],
+      "UpstreamHttpMethod": [ "Get" ],
       "DownstreamPathTemplate": "/Note/patient/{id}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5003
+        }
+      ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer"
+      }
+    },
+    {
+      "UpstreamPathTemplate": "/note",
+      "UpstreamHttpMethod": [ "post" ],
+      "DownstreamPathTemplate": "/Note",
       "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
         {

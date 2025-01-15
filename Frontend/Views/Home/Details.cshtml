@@ -27,19 +27,19 @@
 
 <ul class="nav nav-tabs">
     <li class="nav-item">
-        <a class="nav-link active" href="#">Détails</a>
+        <a class="nav-link active" id="details-tab" href="#details" data-bs-toggle="tab" role="tab" aria-controls="details" aria-selected="true">Détails</a>
     </li>
     <li class="nav-item">
-        <a class="nav-link" href="#">Onglet 2 (À développer)</a>
+        <a class="nav-link" id="createNote-tab" href="#createNoteTab" data-bs-toggle="tab" role="tab" aria-controls="createNoteTab" aria-selected="false">Créer une note</a>
     </li>
     <li class="nav-item">
-        <a class="nav-link" href="#">Onglet 3 (À développer)</a>
+        <a class="nav-link" id="onglet3-tab" href="#onglet3" data-bs-toggle="tab" role="tab" aria-controls="onglet3" aria-selected="false">Onglet 3 (À développer)</a>
     </li>
 </ul>
 
 
 <div class="tab-content mt-3">
-    <div class="tab-pane fade show active" id="details">
+    <div class="tab-pane fade show active" id="details" role="tabpanel" aria-labelledby="details-tab">
         <h4>Notes du Patient</h4>
 
         @if (Model.Notes == null || !Model.Notes.Any())
@@ -58,6 +58,23 @@
                 }
             </ul>
         }
+    </div>
+    <div class="tab-pane fade" id="createNoteTab" role="tabpanel" aria-labelledby="createNote-tab">
+        <h4>Ajouter une Note</h4>
+
+        <form asp-action="CreateNote" asp-controller="Note" method="post">
+            <input type="hidden" name="PatientId" value="@Model.PatientId" />
+            <input type="hidden" name="NomPatient" value="@Model.Nom" />
+            <div class="form-group">
+                <label for="Contenu">Contenu de la note</label>
+                <textarea class="form-control" id="Contenu" name="Contenu" rows="4" required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary mt-3">Ajouter la note</button>
+        </form>
+    </div>
+    <div class="tab-pane fade" id="onglet3" role="tabpanel" aria-labelledby="onglet3-tab">
+        <h4>Onglet 3 (À développer)</h4>
+        <p>Ce contenu sera développé ultérieurement.</p>
     </div>
 </div>
 

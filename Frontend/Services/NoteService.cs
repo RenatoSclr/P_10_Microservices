@@ -17,18 +17,20 @@ namespace Frontend.Services
         {
             _httpService = httpService;
         }
-        public Task<Result> CreateNote()
+        public async Task<Result> CreateNote(CreateNoteViewModel createNoteViewModel, string token)
         {
+            var note = await MapToNoteEntity(createNoteViewModel);
 
-            throw new NotImplementedException();
+            var response = await _httpService.PostAsync("/note", note, token);
+
+            if (response.IsFailure)
+                return Result.Failure("Erreur lors de la création de la note.");
+
+            return Result.Success();
         }
+
 
         public Task<Result> DeleteNote()
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<Result> GetNoteById(Guid patientId)
         {
             throw new NotImplementedException();
         }
@@ -43,11 +45,6 @@ namespace Frontend.Services
             return await MapToNoteSummary(notesResult.Value);
         }
 
-        public Task<Result> UpdateNote()
-        {
-            throw new NotImplementedException();
-        }
-
         private async Task<List<NoteSummary>> MapToNoteSummary(List<Note> notes)
         {
             return notes.Select(note => new NoteSummary
@@ -55,6 +52,16 @@ namespace Frontend.Services
                 Contenu = note.Contenu,
                 DateCreation = note.DateCreatiom
             }).ToList();
+        }
+
+        private async Task<Note> MapToNoteEntity(CreateNoteViewModel noteViewModel)
+        {
+            return new Note
+            {
+                PatientId = noteViewModel.PatientId,
+                Contenu = noteViewModel.Contenu,
+                NomPatient = noteViewModel.NomPatient,
+            };
         }
     }
 }

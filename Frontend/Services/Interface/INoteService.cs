@@ -6,9 +6,7 @@ namespace Frontend.Services.Interface
     public interface INoteService
     {
         Task<Result<List<NoteSummary>>> GetPatientNotes(Guid patientId, string note);
-        Task<Result> GetNoteById(Guid patientId);
-        Task<Result> CreateNote();
-        Task<Result> UpdateNote();
+        Task<Result> CreateNote(CreateNoteViewModel note, string token);
         Task<Result> DeleteNote();
     }
 }

@@ -1,12 +1,51 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Frontend.Services.Interface;
+using Frontend.ViewModel.NotesViewModel;
+using Microsoft.AspNetCore.Mvc;
+using CSharpFunctionalExtensions;
+using Frontend.ViewModel;
 
 namespace Frontend.Controllers
 {
     public class NoteController : Controller
     {
-        public IActionResult CreateNote()
+        private readonly INoteService _noteService;
+
+        public NoteController(INoteService noteService)
         {
-            return View();
+            _noteService = noteService;
+        }
+
+        public IActionResult Details(Guid patientId)
+        {
+            var model = new PatientDetailsViewModel
+            {
+                PatientId = patientId,
+                Notes = new List<NoteSummary>() 
+            };
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> CreateNote(CreateNoteViewModel model)
+        {
+            var token = Request.Cookies["auth_token"];
+            if (string.IsNullOrEmpty(token))
+            {
+                return RedirectToAction("Login", "Account");
+            }
+
+            var result = await _noteService.CreateNote(model, token);
+
+            if (result.IsFailure)
+            {
+                TempData["Message"] = result.Error;
+            }
+            else
+            {
+                TempData["Message"] = "Note ajoutée avec succès!";
+            }
+
+            return RedirectToAction("Details", "Home", new {id = model.PatientId});
         }
     }
 }

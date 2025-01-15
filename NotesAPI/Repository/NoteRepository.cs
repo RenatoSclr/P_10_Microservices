@@ -51,7 +51,9 @@ namespace NotesAPI.Repository
             try
             {
                 var filter = Builders<Note>.Filter.Eq(n => n.PatientId, patientId);
-                var notes = await _context.Note.Find(filter).ToListAsync();
+                var notes = await _context.Note.Find(filter)
+                    .Sort(Builders<Note>.Sort.Descending(n => n.DateCreatiom))
+                    .ToListAsync();
 
                 return Result.Success(notes);
             }
