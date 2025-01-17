@@ -13,10 +13,6 @@ namespace NotesAPI.Domain
         [BsonRepresentation(BsonType.String)]
         public Guid PatientId { get; set; }
 
-        [BsonElement("Nom_Patient")]
-        [BsonRepresentation(BsonType.String)]
-        public string NomPatient { get; set; }
-
         [BsonElement("Contenu")]
         [BsonRepresentation(BsonType.String)]
         public string Contenu { get; set; }

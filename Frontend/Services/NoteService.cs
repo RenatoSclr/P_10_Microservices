@@ -74,7 +74,6 @@ namespace Frontend.Services
             {
                 PatientId = noteViewModel.PatientId,
                 Contenu = noteViewModel.Contenu,
-                NomPatient = noteViewModel.NomPatient,
             };
         }
     }

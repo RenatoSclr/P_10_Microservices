@@ -82,7 +82,6 @@ namespace NotesAPI.Services
             {
                 Contenu = createNote.Contenu,
                 PatientId = createNote.PatientId,
-                NomPatient = createNote.NomPatient,
                 DateCreatiom = DateTime.UtcNow
             };
         }
@@ -111,7 +110,6 @@ namespace NotesAPI.Services
             {
                 NoteId = note.NoteId,
                 Contenu = note.Contenu,
-                NomPatient = note.NomPatient,
                 PatientId = note.PatientId,
                 DateCreatiom = note.DateCreatiom
             };

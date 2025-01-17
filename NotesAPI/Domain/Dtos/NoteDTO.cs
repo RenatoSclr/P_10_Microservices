@@ -7,7 +7,6 @@ namespace NotesAPI.Domain.Dtos
     {
         public Guid NoteId { get; set; }
         public Guid PatientId { get; set; }
-        public string NomPatient { get; set; }
         public string Contenu { get; set; }
         public DateTime DateCreatiom { get; set; }   
     }
