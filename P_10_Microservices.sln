@@ -21,6 +21,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NotesAPI", "NotesAPI\NotesA
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DiabeticAssessmentAPI", "DiabeticAssessmentAPI\DiabeticAssessmentAPI.csproj", "{E1E8AE1D-B91B-4287-9A8A-23DC5F09CE40}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{A7AAA6CB-151A-471F-B65A-0347D77C8BD6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DiabeticAssessmentAPITests", "DiabeticAssessmentAPITests\DiabeticAssessmentAPITests.csproj", "{51889FD3-7577-41F0-A08E-AAE089B6A0D5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -51,6 +55,10 @@ Global
 		{E1E8AE1D-B91B-4287-9A8A-23DC5F09CE40}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E1E8AE1D-B91B-4287-9A8A-23DC5F09CE40}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E1E8AE1D-B91B-4287-9A8A-23DC5F09CE40}.Release|Any CPU.Build.0 = Release|Any CPU
+		{51889FD3-7577-41F0-A08E-AAE089B6A0D5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{51889FD3-7577-41F0-A08E-AAE089B6A0D5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{51889FD3-7577-41F0-A08E-AAE089B6A0D5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{51889FD3-7577-41F0-A08E-AAE089B6A0D5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -62,5 +70,6 @@ Global
 		{591B6E36-A758-46B3-94AF-BF9063269459} = {9FF276E4-6423-40C1-84E1-6E42C49D5E2F}
 		{6E2BFED4-9F32-4BA7-AF10-4893A494534A} = {9FF276E4-6423-40C1-84E1-6E42C49D5E2F}
 		{E1E8AE1D-B91B-4287-9A8A-23DC5F09CE40} = {9FF276E4-6423-40C1-84E1-6E42C49D5E2F}
+		{51889FD3-7577-41F0-A08E-AAE089B6A0D5} = {A7AAA6CB-151A-471F-B65A-0347D77C8BD6}
 	EndGlobalSection
 EndGlobal
