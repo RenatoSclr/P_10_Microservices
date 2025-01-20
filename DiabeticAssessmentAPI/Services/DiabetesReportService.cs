@@ -1,7 +1,5 @@
 ﻿using DiabeticAssessmentAPI.Domain;
 using DiabeticAssessmentAPI.Domain.Dtos;
-using DiabeticAssessmentAPI.Services.IServices;
-using System.Collections.Specialized;
 
 namespace DiabeticAssessmentAPI.Services
 {
@@ -27,9 +25,9 @@ namespace DiabeticAssessmentAPI.Services
             if (age >= 30 && 2 <= count && count <= 5)
                 return "Borderline";
 
-            if (age >= 30 && count == 6 || count == 7)
+            if (age >= 30 && (count == 6 || count == 7))
                 return "InDanger";
-
+            
             if (age < 30 && infoPatient.Genre == "Homme" && (count == 3 || count == 4))
                 return "InDanger";
 
@@ -37,6 +35,9 @@ namespace DiabeticAssessmentAPI.Services
                 return "InDanger";
 
             if (age < 30 && count >=5 && infoPatient.Genre == "Homme")
+                return "EarlyOnset";
+
+            if (age < 30 && count >= 7 && infoPatient.Genre == "Femme")
                 return "EarlyOnset";
 
             return "None";
