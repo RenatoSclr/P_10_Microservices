@@ -13,7 +13,7 @@ namespace DiabeticAssessmentAPITests.UnitTests
             var expected = "None";
 
             //Arrange
-            var diabeteReportService = new DiabetesReportService();
+            var diabeteReportService = new DiabetesAlgorihmeService();
             InfoPatientDTO infoPatientDTO = new InfoPatientDTO();
 
             List<ContenuNotePatientDTO> contenuNoteDTOs = new List<ContenuNotePatientDTO>
@@ -35,7 +35,7 @@ namespace DiabeticAssessmentAPITests.UnitTests
             var expected = "Borderline";
 
             //Arrange
-            var diabeteReportService = new DiabetesReportService();
+            var diabeteReportService = new DiabetesAlgorihmeService();
             InfoPatientDTO infoPatientDTO = new InfoPatientDTO
             {
                 DateNaissance = new DateTime(1945, 05, 24),
@@ -61,7 +61,7 @@ namespace DiabeticAssessmentAPITests.UnitTests
             var expected = "InDanger";
 
             //Arrange
-            var diabeteReportService = new DiabetesReportService();
+            var diabeteReportService = new DiabetesAlgorihmeService();
             InfoPatientDTO infoPatientDTO = new InfoPatientDTO
             {
                 DateNaissance = new DateTime(2004, 06, 18),
@@ -88,7 +88,7 @@ namespace DiabeticAssessmentAPITests.UnitTests
             var expected = "InDanger";
 
             //Arrange
-            var diabeteReportService = new DiabetesReportService();
+            var diabeteReportService = new DiabetesAlgorihmeService();
             InfoPatientDTO infoPatientDTO = new InfoPatientDTO
             {
                 DateNaissance = new DateTime(2004, 06, 18),
@@ -115,7 +115,7 @@ namespace DiabeticAssessmentAPITests.UnitTests
             var expected = "InDanger";
 
             //Arrange
-            var diabeteReportService = new DiabetesReportService();
+            var diabeteReportService = new DiabetesAlgorihmeService();
             InfoPatientDTO infoPatientDTO = new InfoPatientDTO
             {
                 DateNaissance = new DateTime(1945, 06, 18),
@@ -142,7 +142,7 @@ namespace DiabeticAssessmentAPITests.UnitTests
             var expected = "EarlyOnset";
 
             //Arrange
-            var diabeteReportService = new DiabetesReportService();
+            var diabeteReportService = new DiabetesAlgorihmeService();
             InfoPatientDTO infoPatientDTO = new InfoPatientDTO
             {
                 DateNaissance = new DateTime(2002, 06, 28),
@@ -170,7 +170,7 @@ namespace DiabeticAssessmentAPITests.UnitTests
             var expected = "EarlyOnset";
 
             //Arrange
-            var diabeteReportService = new DiabetesReportService();
+            var diabeteReportService = new DiabetesAlgorihmeService();
             InfoPatientDTO infoPatientDTO = new InfoPatientDTO
             {
                 DateNaissance = new DateTime(2002, 06, 28),
@@ -198,7 +198,7 @@ namespace DiabeticAssessmentAPITests.UnitTests
             var expected = "EarlyOnset";
 
             //Arrange
-            var diabeteReportService = new DiabetesReportService();
+            var diabeteReportService = new DiabetesAlgorihmeService();
             InfoPatientDTO infoPatientDTO = new InfoPatientDTO
             {
                 DateNaissance = new DateTime(1945, 06, 28),

@@ -11,5 +11,6 @@ namespace PatientsAPI.Services.IServices
         Task AddPatient(CreateOrUpdatePatientDTO patient);
         Task UpdatePatient(CreateOrUpdatePatientDTO patient, Guid id);
         Task DeletePatient(Patient patient);
+        Task<PatientMinimalInfoDTO> GetPatientMinimalInfoDTOById(Guid id);
     }
 }

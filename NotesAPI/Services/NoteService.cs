@@ -54,6 +54,17 @@ namespace NotesAPI.Services
             return Result.Success(noteDto);
         }
 
+        public async Task<Result<List<PatientNoteContentDTO>>> GetPatientNoteContentDTOById(Guid patientId)
+        {
+            var notesResult = await _noteRepository.GetAllPatientNotes(patientId);
+
+            if (notesResult.IsFailure)
+                return Result.Failure<List<PatientNoteContentDTO>>(notesResult.Error);
+
+            var noteDtoList = MapToPatientNoteContentList(notesResult.Value);
+            return Result.Success(noteDtoList);
+        }
+
         public async Task<Result<List<NoteDTO>>> GetAllPatientNotesDTO(Guid patientId)
         {
             var notesResult = await _noteRepository.GetAllPatientNotes(patientId);
@@ -74,6 +85,14 @@ namespace NotesAPI.Services
             var updatedNote = MapUpdateNoteDtoToNote(updateNote, noteResult.Value);
 
             return await _noteRepository.UpdateNote(updatedNote);
+        }
+
+        private List<PatientNoteContentDTO> MapToPatientNoteContentList(List<Note> notes)
+        {
+            return notes.Select(note => new PatientNoteContentDTO
+            {
+                Contenu = note.Contenu
+            }).ToList();
         }
 
         private Note MapToNoteEntity(CreateNoteDTO createNote)

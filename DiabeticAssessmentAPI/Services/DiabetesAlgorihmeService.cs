@@ -1,9 +1,10 @@
 ﻿using DiabeticAssessmentAPI.Domain;
 using DiabeticAssessmentAPI.Domain.Dtos;
+using DiabeticAssessmentAPI.Services.IServices;
 
 namespace DiabeticAssessmentAPI.Services
 {
-    public class DiabetesReportService 
+    public class DiabetesAlgorihmeService : IDiabetesAlgorihmeService
     {
         public string GetDiabeteReportByPatientId(InfoPatientDTO infoPatient, List<ContenuNotePatientDTO> contenuNoteDTOs)
         {

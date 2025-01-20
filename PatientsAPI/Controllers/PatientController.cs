@@ -42,6 +42,14 @@ namespace PatientsAPI.Controllers
             return Ok(patientsList);
         }
 
+        [HttpGet("{id}/minimal-info")]
+        public async Task<ActionResult> GetMinimalInfo(Guid id)
+        {
+            var patients = await _patientService.GetPatientMinimalInfoDTOById(id);
+            if (patients == null) { return NotFound($"Le patient avec le numero d'identifiant : {id}, est introuvable"); }
+            return Ok(patients);
+        }
+
         [HttpPut("{id}")]
         public async Task<ActionResult> UpdatePatients(Guid id, [FromBody] CreateOrUpdatePatientDTO patients)
         {

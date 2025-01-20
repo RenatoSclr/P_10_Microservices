@@ -43,6 +43,12 @@ namespace PatientsAPI.Services
             return await MapToPatientDTO(patient);
         }
 
+        public async Task<PatientMinimalInfoDTO> GetPatientMinimalInfoDTOById(Guid id)
+        {
+            var patient = await GetPatientById(id);
+            return await MapToPatientMinimalInfoDTO(patient);
+        }
+
         public async Task UpdatePatient(CreateOrUpdatePatientDTO patientDto, Guid id)
         {
             var patient = await MapToPatientToUpdate(patientDto, await GetPatientById(id));
@@ -87,6 +93,15 @@ namespace PatientsAPI.Services
                 GenreType = patient.Genre.GenreLabel,
                 Adresse = patient.Adresse,
                 NumeroTelephone = patient.NumeroTelephone
+            };
+        }
+
+        private async Task<PatientMinimalInfoDTO> MapToPatientMinimalInfoDTO(Patient patient)
+        {
+            return new PatientMinimalInfoDTO
+            {
+                DateNaissance = patient.DateDeNaissance,
+                Genre = patient.Genre.GenreLabel.ToString(),
             };
         }
 

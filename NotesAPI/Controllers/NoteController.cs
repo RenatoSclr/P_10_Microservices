@@ -29,6 +29,13 @@ namespace NotesAPI.Controllers
             return result.IsSuccess ? Ok(result.Value) : NotFound(result.Error);
         }
 
+        [HttpGet("patient/{id}/content")]
+        public async Task<IActionResult> GetPatientNotesContentById(Guid id)
+        {
+            var result = await _noteService.GetPatientNoteContentDTOById(id);
+            return result.IsSuccess ? Ok(result.Value) : NotFound(result.Error);
+        }
+
         [HttpPost]
         public async Task<IActionResult> CreateNote([FromBody] CreateNoteDTO note)
         {
