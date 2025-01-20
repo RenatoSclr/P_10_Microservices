@@ -30,6 +30,10 @@ namespace DiabeticAssessmentAPI.Services
 
             if (age < 30 && count == 3 && infoPatient.Genre == "Homme")
                 return "InDanger";
+
+            if (age < 30 && count == 4 && infoPatient.Genre == "Femme")
+                return "InDanger";
+
             return "À implémenter";
         }
     }
