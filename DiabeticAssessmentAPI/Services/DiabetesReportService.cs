@@ -7,41 +7,69 @@ namespace DiabeticAssessmentAPI.Services
     {
         public string GetDiabeteReportByPatientId(InfoPatientDTO infoPatient, List<ContenuNotePatientDTO> contenuNoteDTOs)
         {
-            DateTime dateNow = DateTime.Now;
-            int age = dateNow.Year - infoPatient.DateNaissance.Year;
-            if (infoPatient.DateNaissance > dateNow.AddYears(-age))
+            int age = CalculateAge(infoPatient.DateNaissance);
+            int count = CountTriggers(contenuNoteDTOs);
+
+            if (age >= 30)
+                return EvaluateRiskForAgeGreaterThanThirty(count);
+
+            return EvaluateRiskForAgeLowerThanThirty(age, infoPatient.Genre, count);
+        }
+
+        private int CalculateAge(DateTime dateNaissance)
+        {
+            DateTime now = DateTime.Now;
+            int age = now.Year - dateNaissance.Year;
+            if (dateNaissance > now.AddYears(-age))
                 age--;
+            return age;
+        }
 
-            // Trouver les déclencheurs uniques dans toutes les notes
-            var declencheursTrouves = Declencheurs.Liste
-                .Where(d => contenuNoteDTOs.Any(note =>
-                    note.Contenu.Contains(d, StringComparison.OrdinalIgnoreCase)))
+        private int CountTriggers(List<ContenuNotePatientDTO> contenuNoteDTOs)
+        {
+            return Declencheurs.Liste
+                .Where(declencheur => contenuNoteDTOs
+                    .Any(note => note.Contenu.Contains(declencheur, StringComparison.OrdinalIgnoreCase)))
                 .Distinct()
-                .ToList();
+                .Count();
+        }
 
-            int count = declencheursTrouves.Count;
+        private string EvaluateRiskForAgeGreaterThanThirty(int count)
+        {
+            if (count >= 8) 
+                return "EarlyOnset";
 
+            if (count == 6 || count == 7) 
+                return "InDanger";
 
-            if (age >= 30 && 2 <= count && count <= 5)
+            if (count >= 2 && count <= 5) 
                 return "Borderline";
 
-            if (age >= 30 && (count == 6 || count == 7))
-                return "InDanger";
-            
-            if (age < 30 && infoPatient.Genre == "Homme" && (count == 3 || count == 4))
-                return "InDanger";
+            return "None";
+        }
 
-            if (age < 30 && infoPatient.Genre == "Femme" && (count == 4 || count == 5 || count == 6))
-                return "InDanger";
+        private string EvaluateRiskForAgeLowerThanThirty(int age, string genre, int declencheurCount)
+        {
+            bool isMale = genre.Equals("Homme", StringComparison.OrdinalIgnoreCase);
+            bool isFemale = genre.Equals("Femme", StringComparison.OrdinalIgnoreCase);
 
-            if (age < 30 && count >=5 && infoPatient.Genre == "Homme")
-                return "EarlyOnset";
+            if (isMale)
+            {
+                if (declencheurCount >= 5) 
+                    return "EarlyOnset";
 
-            if (age < 30 && count >= 7 && infoPatient.Genre == "Femme")
-                return "EarlyOnset";
+                if (declencheurCount == 3 || declencheurCount == 4) 
+                    return "InDanger";
+            }
 
-            if (age >= 30 && count >= 8)
-                return "EarlyOnset";
+            if (isFemale)
+            {
+                if (declencheurCount >= 7)
+                    return "EarlyOnset";
+
+                if (declencheurCount >= 4 && declencheurCount <= 6) 
+                    return "InDanger";
+            }
 
             return "None";
         }
