@@ -28,6 +28,9 @@ namespace DiabeticAssessmentAPI.Services
             if (age >= 30 && 2 <= count && count <= 5)
                 return "Borderline";
 
+            if (age >= 30 && count == 6 || count == 7)
+                return "InDanger";
+
             if (age < 30 && count == 3 && infoPatient.Genre == "Homme")
                 return "InDanger";
 
