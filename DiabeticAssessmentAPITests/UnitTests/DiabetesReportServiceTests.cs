@@ -8,7 +8,7 @@ namespace DiabeticAssessmentAPITests.UnitTests
     public class DiabetesReportServiceTests
     {
         [Fact]
-        public async Task Should_return_None_When_ContenuNotePatientDTO_Contains_No_Triggers()
+        public async Task Should_return_None_When_ContenuNotePatientDTO_Contains_Max_One_Triggers()
         {
             var expected = "None";
 
@@ -22,10 +22,8 @@ namespace DiabeticAssessmentAPITests.UnitTests
                 new ContenuNotePatientDTO { Contenu = "NO PROBLEMO" }
             };
 
-
             //Act
             var result = diabeteReportService.GetDiabeteReportByPatientId(infoPatientDTO, contenuNoteDTOs);
-
 
             //Assert
             Assert.Equal(result.ToLower(), expected.ToLower());
@@ -50,10 +48,8 @@ namespace DiabeticAssessmentAPITests.UnitTests
                 new ContenuNotePatientDTO { Contenu = "Le patient déclare avoir fait une réaction aux médicaments au cours des 3 derniers mois Il remarque également que son audition continue d'être anormale" }
             };
 
-
             //Act
             var result = diabeteReportService.GetDiabeteReportByPatientId(infoPatientDTO, contenuNoteDTOs);
-
 
             //Assert
             Assert.Equal(result.ToLower(), expected.ToLower());
@@ -79,10 +75,8 @@ namespace DiabeticAssessmentAPITests.UnitTests
                 "Il se plaint également de crises d’apnée respiratoire anormales Tests de laboratoire indiquant un taux de cholestérol LDL élevé" }
             };
 
-
             //Act
             var result = diabeteReportService.GetDiabeteReportByPatientId(infoPatientDTO, contenuNoteDTOs);
-
 
             //Assert
             Assert.Equal(result.ToLower(), expected.ToLower());
@@ -108,10 +102,8 @@ namespace DiabeticAssessmentAPITests.UnitTests
                 "Il se plaint également de crises d’apnée respiratoire anormales Tests de laboratoire indiquant un taux de cholestérol LDL élevé, Vertiges" }
             };
 
-
             //Act
             var result = diabeteReportService.GetDiabeteReportByPatientId(infoPatientDTO, contenuNoteDTOs);
-
 
             //Assert
             Assert.Equal(result.ToLower(), expected.ToLower());
@@ -137,10 +129,36 @@ namespace DiabeticAssessmentAPITests.UnitTests
                 "Il se plaint également de crises d’apnée respiratoire anormales Tests de laboratoire indiquant un taux de cholestérol LDL élevé, Vertiges, Anticorps, microalbumine" }
             };
 
-
             //Act
             var result = diabeteReportService.GetDiabeteReportByPatientId(infoPatientDTO, contenuNoteDTOs);
 
+            //Assert
+            Assert.Equal(result.ToLower(), expected.ToLower());
+        }
+
+        [Fact]
+        public async Task Should_return_EarlyOnset_When_ContenuNotePatientDTO_Contains_Five_Or_More_Triggers_and_AgePatient_Less_than_thirty_And_Genre_is_Homme()
+        {
+            var expected = "EarlyOnset";
+
+            //Arrange
+            var diabeteReportService = new DiabetesReportService();
+            InfoPatientDTO infoPatientDTO = new InfoPatientDTO
+            {
+                DateNaissance = new DateTime(2002, 06, 28),
+                Genre = "Homme"
+            };
+
+            List<ContenuNotePatientDTO> contenuNoteDTOs = new List<ContenuNotePatientDTO>
+            {
+                new ContenuNotePatientDTO { Contenu = "Le patient déclare qu'il lui est devenu difficile de monter les escaliers Il se plaint également d’être essoufflé Tests de laboratoire indiquant que les anticorps sont élevés Réaction aux médicaments" },
+                new ContenuNotePatientDTO { Contenu = "Le patient déclare qu'il a mal au dos lorsqu'il reste assis pendant longtemps" },
+                new ContenuNotePatientDTO { Contenu = "Le patient déclare avoir commencé à fumer depuis peu Hémoglobine A1C supérieure au niveau recommandé" },
+                new ContenuNotePatientDTO { Contenu = "Taille, Poids, Cholestérol, Vertige et Réaction" },
+            };
+
+            //Act
+            var result = diabeteReportService.GetDiabeteReportByPatientId(infoPatientDTO, contenuNoteDTOs);
 
             //Assert
             Assert.Equal(result.ToLower(), expected.ToLower());
