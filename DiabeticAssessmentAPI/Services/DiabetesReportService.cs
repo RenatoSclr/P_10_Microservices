@@ -40,6 +40,9 @@ namespace DiabeticAssessmentAPI.Services
             if (age < 30 && count >= 7 && infoPatient.Genre == "Femme")
                 return "EarlyOnset";
 
+            if (age >= 30 && count >= 8)
+                return "EarlyOnset";
+
             return "None";
         }
     }

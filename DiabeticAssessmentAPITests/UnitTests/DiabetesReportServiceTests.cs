@@ -163,6 +163,7 @@ namespace DiabeticAssessmentAPITests.UnitTests
             //Assert
             Assert.Equal(result.ToLower(), expected.ToLower());
         }
+
         [Fact]
         public async Task Should_return_EarlyOnset_When_ContenuNotePatientDTO_Contains_Seven_Or_More_Triggers_and_AgePatient_Less_than_thirty_And_Genre_is_Femme()
         {
@@ -182,6 +183,34 @@ namespace DiabeticAssessmentAPITests.UnitTests
                 new ContenuNotePatientDTO { Contenu = "Le patient déclare qu'il a mal au dos lorsqu'il reste assis pendant longtemps" },
                 new ContenuNotePatientDTO { Contenu = "Le patient déclare avoir commencé à fumer depuis peu Hémoglobine A1C supérieure au niveau recommandé" },
                 new ContenuNotePatientDTO { Contenu = "Taille, Poids, Cholestérol, Vertige, Réaction, fumeur" },
+            };
+
+            //Act
+            var result = diabeteReportService.GetDiabeteReportByPatientId(infoPatientDTO, contenuNoteDTOs);
+
+            //Assert
+            Assert.Equal(result.ToLower(), expected.ToLower());
+        }
+
+        [Fact]
+        public async Task Should_return_EarlyOnset_When_ContenuNotePatientDTO_Contains_Eight_Or_More_Triggers_and_AgePatient_Greater_than_thirty()
+        {
+            var expected = "EarlyOnset";
+
+            //Arrange
+            var diabeteReportService = new DiabetesReportService();
+            InfoPatientDTO infoPatientDTO = new InfoPatientDTO
+            {
+                DateNaissance = new DateTime(1945, 06, 28),
+                Genre = "Femme"
+            };
+
+            List<ContenuNotePatientDTO> contenuNoteDTOs = new List<ContenuNotePatientDTO>
+            {
+                new ContenuNotePatientDTO { Contenu = "Le patient déclare qu'il lui est devenu difficile de monter les escaliers Il se plaint également d’être essoufflé Tests de laboratoire indiquant que les anticorps sont élevés Réaction aux médicaments" },
+                new ContenuNotePatientDTO { Contenu = "Le patient déclare qu'il a mal au dos lorsqu'il reste assis pendant longtemps" },
+                new ContenuNotePatientDTO { Contenu = "Le patient déclare avoir commencé à fumer depuis peu Hémoglobine A1C supérieure au niveau recommandé" },
+                new ContenuNotePatientDTO { Contenu = "Taille, Poids, Cholestérol, Vertige, Réaction, fumeur, microalbumine" },
             };
 
             //Act
