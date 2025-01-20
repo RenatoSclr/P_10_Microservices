@@ -2,6 +2,6 @@
 {
     public interface IDiabetesReportService
     {
-        Task GetDiabeteReportByPatientId(Guid patientId);
+        string GetDiabeteReportByPatientId();
     }
 }
