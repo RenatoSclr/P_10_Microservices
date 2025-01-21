@@ -39,7 +39,7 @@
         <a class="nav-link" id="createNote-tab" href="#createNoteTab" data-bs-toggle="tab" role="tab" aria-controls="createNoteTab" aria-selected="false">Créer une note</a>
     </li>
     <li class="nav-item">
-        <a class="nav-link" id="onglet3-tab" href="#onglet3" data-bs-toggle="tab" role="tab" aria-controls="onglet3" aria-selected="false">Onglet 3 (À développer)</a>
+        <a class="nav-link" id="onglet3-tab" href="#onglet3" data-bs-toggle="tab" role="tab" aria-controls="onglet3" aria-selected="false">Rapport de Diabète</a>
     </li>
 </ul>
 
@@ -88,8 +88,49 @@
         </form>
     </div>
     <div class="tab-pane fade" id="onglet3" role="tabpanel" aria-labelledby="onglet3-tab">
-        <h4>Onglet 3 (À développer)</h4>
-        <p>Ce contenu sera développé ultérieurement.</p>
+        <h4>Rapport de Diabète</h4>
+
+        @if (Model.ReportDiabete == null)
+        {
+            <p>Aucun rapport de diabète disponible pour ce patient.</p>
+        }
+        else
+        {
+            <div class="card">
+                <div class="card-header">
+                    <strong>Niveau de risque :</strong>
+                    @{
+                        var niveauRisque = Model.ReportDiabete.NiveauRisque;
+                        var badgeClass = niveauRisque switch
+                        {
+                            "EarlyOnset" => "bg-danger",
+                            "InDanger" => "bg-warning",
+                            "Borderline" => "bg-info",
+                            "None" => "bg-success",
+                            _ => "bg-secondary"
+                        };
+                    }
+                    <span class="badge @badgeClass">@niveauRisque</span>
+                </div>
+                <div class="card-body">
+                    <h5>Déclencheurs Identifiés :</h5>
+                    @if (Model.ReportDiabete.Declencheurs != null && Model.ReportDiabete.Declencheurs.Any())
+                    {
+                        <ul class="list-group">
+                            @foreach (var declencheur in Model.ReportDiabete.Declencheurs)
+                            {
+                                <li class="list-group-item">@declencheur</li>
+                            }
+                        </ul>
+                    }
+                    else
+                    {
+                        <p>Aucun déclencheur identifié.</p>
+                    }
+                </div>
+            </div>
+        }
     </div>
+
 </div>
 
