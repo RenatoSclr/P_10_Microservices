@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using CSharpFunctionalExtensions;
+using Microsoft.EntityFrameworkCore;
 using PatientsAPI.Data;
 using PatientsAPI.Domain;
 using PatientsAPI.Domain.IRepository;
@@ -14,37 +15,91 @@ namespace PatientsAPI.Repository
             _context = context;
         }
 
-        public async Task AddPatient(Patient patients)
+        public async Task<Result> AddPatient(Patient patients)
         {
-            await _context.Patients.AddAsync(patients);
+            try
+            {
+                await _context.Patients.AddAsync(patients);
+                return Result.Success();
+            }
+            catch (Exception ex)
+            {
+                return Result.Failure($"An error occurred while adding the patient: {ex.Message}");
+            }
         }
 
-        public async Task DeletePatient(Patient patient)
+        public async Task<Result> DeletePatient(Patient patient)
         {
-            _context.Remove(patient);
+            try
+            {
+                _context.Remove(patient);
+                return Result.Success();
+            }
+            catch (Exception ex)
+            {
+                return Result.Failure($"An error occurred while deleting the patient: {ex.Message}");
+            }          
         }
 
-        public async Task<List<Patient>> GetAllPatients()
+        public async Task<Result<List<Patient>>> GetAllPatients()
         {
-            return await _context.Patients
-                .Include(p => p.Genre)  
+            try
+            {
+                var patients =  await _context.Patients
+                .Include(p => p.Genre)
                 .ToListAsync();
+                return Result.Success(patients);
+            }
+            catch (Exception ex)
+            {
+                return Result.Failure<List<Patient>>($"An error occurred while fetching patients: {ex.Message}");
+            }
+            
         }
 
-        public async Task<Patient> GetPatients(Guid id)
+        public async Task<Result<Patient>> GetPatients(Guid id)
         {
-            return await _context.Patients.Include(p => p.Genre) 
-                    .FirstOrDefaultAsync(p => p.PatientId == id); 
+            try
+            {
+                var patient =  await _context.Patients.Include(p => p.Genre)
+                    .FirstOrDefaultAsync(p => p.PatientId == id);
+
+                if (patient == null)
+                    return Result.Failure<Patient>("Patient not found");
+
+                return Result.Success(patient);
+            }
+            catch (Exception ex)
+            {
+                return Result.Failure<Patient>($"An error occurred while fetching the patient: {ex.Message}");
+            }
         }
 
-        public async Task UpdatePatient(Patient patients)
+        public async Task<Result> UpdatePatient(Patient patients)
         {
-            _context.Update(patients);
+            try
+            {
+                _context.Update(patients);
+                return Result.Success();
+            }
+            catch (Exception ex)
+            {
+                return Result.Failure($"An error occurred while updating the patient: {ex.Message}");
+            }
+            
         }
 
-        public async Task Save()
+        public async Task<Result> Save()
         {
-            await _context.SaveChangesAsync();
+            try
+            {
+                await _context.SaveChangesAsync();
+                return Result.Success();
+            }
+            catch (Exception ex)
+            {
+                return Result.Failure($"An error occurred while save the patient data: {ex.Message}");
+            }
         }
     }
 }
