@@ -1,16 +1,17 @@
-﻿using PatientsAPI.Domain;
+﻿using CSharpFunctionalExtensions;
+using PatientsAPI.Domain;
 using PatientsAPI.Domain.Dtos;
 
 namespace PatientsAPI.Services.IServices
 {
     public interface IPatientService
     {
-        Task<List<GetPatientDTO>> GetAllPatients();
-        Task<Patient> GetPatientById(Guid id);
-        Task<GetPatientDTO> GetPatientDTOById(Guid id);
-        Task AddPatient(CreateOrUpdatePatientDTO patient);
-        Task UpdatePatient(CreateOrUpdatePatientDTO patient, Guid id);
-        Task DeletePatient(Patient patient);
-        Task<PatientMinimalInfoDTO> GetPatientMinimalInfoDTOById(Guid id);
+        Task<Result<List<GetPatientDTO>>> GetAllPatients();
+        Task<Result<Patient>> GetPatientById(Guid id);
+        Task<Result<GetPatientDTO>> GetPatientDTOById(Guid id);
+        Task<Result> AddPatient(CreateOrUpdatePatientDTO patient);
+        Task<Result> UpdatePatient(CreateOrUpdatePatientDTO patient, Guid id);
+        Task<Result> DeletePatient(Patient patient);
+        Task<Result<PatientMinimalInfoDTO>> GetPatientMinimalInfoDTOById(Guid id);
     }
 }

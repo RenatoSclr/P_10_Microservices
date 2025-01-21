@@ -1,7 +1,9 @@
-﻿using PatientsAPI.Domain;
+﻿using CSharpFunctionalExtensions;
+using PatientsAPI.Domain;
 using PatientsAPI.Domain.Dtos;
 using PatientsAPI.Domain.IRepository;
 using PatientsAPI.Services.IServices;
+using System.Collections.Generic;
 
 namespace PatientsAPI.Services
 {
@@ -13,47 +15,82 @@ namespace PatientsAPI.Services
             _repository = repository;
         }
 
-        public async Task AddPatient(CreateOrUpdatePatientDTO patientDto)
+        public async Task<Result> AddPatient(CreateOrUpdatePatientDTO patientDto)
         {
             var patient = await MapToPatientToCreate(patientDto);
-            await _repository.AddPatient(patient);
+            var result = await _repository.AddPatient(patient);
+
+            if (result.IsFailure)
+                return Result.Failure(result.Error);
+
             await _repository.Save();
+            return result;
         }
 
-        public async Task DeletePatient(Patient patient)
+        public async Task<Result> DeletePatient(Patient patient)
         {
-           await _repository.DeletePatient(patient);
-           await _repository.Save();
+           var result  = await _repository.DeletePatient(patient);
+
+            if (result.IsFailure)
+                return Result.Failure(result.Error);
+
+            await _repository.Save();
+            return result;
         }
-        public async Task<List<GetPatientDTO>> GetAllPatients() 
+        public async Task<Result<List<GetPatientDTO>>> GetAllPatients() 
         {
             var patient = await _repository.GetAllPatients();
-            return await MapToPatientDTOList(patient);
+            if (patient.IsFailure)
+                return Result.Failure<List<GetPatientDTO>>(patient.Error);
+            
+            return Result.Success(await MapToPatientDTOList(patient.Value));
         }
 
-        public async Task<Patient> GetPatientById(Guid id)
+        public async Task<Result<Patient>> GetPatientById(Guid id)
         {
-            return await _repository.GetPatients(id);
+            var result = await _repository.GetPatients(id);
 
+            if (result.IsFailure)
+                return Result.Failure<Patient>(result.Error);
+
+            return result;
         }
 
-        public async Task<GetPatientDTO> GetPatientDTOById(Guid id)
+        public async Task<Result<GetPatientDTO>> GetPatientDTOById(Guid id)
         {
             var patient = await GetPatientById(id);
-            return await MapToPatientDTO(patient);
+
+            if (patient.IsFailure)
+                return Result.Failure<GetPatientDTO>(patient.Error);
+
+            return Result.Success(await MapToPatientDTO(patient.Value));
         }
 
-        public async Task<PatientMinimalInfoDTO> GetPatientMinimalInfoDTOById(Guid id)
+        public async Task<Result<PatientMinimalInfoDTO>> GetPatientMinimalInfoDTOById(Guid id)
         {
             var patient = await GetPatientById(id);
-            return await MapToPatientMinimalInfoDTO(patient);
+
+            if (patient.IsFailure)
+                return Result.Failure<PatientMinimalInfoDTO>(patient.Error);
+
+            return Result.Success(await MapToPatientMinimalInfoDTO(patient.Value));
         }
 
-        public async Task UpdatePatient(CreateOrUpdatePatientDTO patientDto, Guid id)
+        public async Task<Result> UpdatePatient(CreateOrUpdatePatientDTO patientDto, Guid id)
         {
-            var patient = await MapToPatientToUpdate(patientDto, await GetPatientById(id));
-            await _repository.UpdatePatient(patient);
+            var patient = await GetPatientById(id);
+
+            if (patient.IsFailure)
+                return Result.Failure<GetPatientDTO>(patient.Error);
+
+            var patientUpdated = await MapToPatientToUpdate(patientDto, patient.Value);
+            var result = await _repository.UpdatePatient(patientUpdated);
+
+            if(result.IsFailure)
+                return Result.Failure(result.Error);
+
             await _repository.Save();
+            return result;
         }
 
 

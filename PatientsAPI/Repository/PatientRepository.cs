@@ -89,17 +89,9 @@ namespace PatientsAPI.Repository
             
         }
 
-        public async Task<Result> Save()
+        public async Task Save()
         {
-            try
-            {
-                await _context.SaveChangesAsync();
-                return Result.Success();
-            }
-            catch (Exception ex)
-            {
-                return Result.Failure($"An error occurred while save the patient data: {ex.Message}");
-            }
+            await _context.SaveChangesAsync();
         }
     }
 }

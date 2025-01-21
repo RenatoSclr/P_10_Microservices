@@ -10,6 +10,6 @@ namespace PatientsAPI.Domain.IRepository
         Task<Result> AddPatient(Patient patient);
         Task<Result> UpdatePatient(Patient patient);
         Task<Result> DeletePatient(Patient patient);
-        Task<Result> Save();
+        Task Save();
     }
 }
