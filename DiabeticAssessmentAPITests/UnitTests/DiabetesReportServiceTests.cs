@@ -23,7 +23,7 @@ namespace DiabeticAssessmentAPITests.UnitTests
             };
 
             //Act
-            var result = diabeteReportService.GetDiabeteReportByPatientId(infoPatientDTO, contenuNoteDTOs);
+            var result = diabeteReportService.GetDiabeteRisk(infoPatientDTO, contenuNoteDTOs);
 
             //Assert
             Assert.Equal(result.ToLower(), expected.ToLower());
@@ -49,7 +49,7 @@ namespace DiabeticAssessmentAPITests.UnitTests
             };
 
             //Act
-            var result = diabeteReportService.GetDiabeteReportByPatientId(infoPatientDTO, contenuNoteDTOs);
+            var result = diabeteReportService.GetDiabeteRisk(infoPatientDTO, contenuNoteDTOs);
 
             //Assert
             Assert.Equal(result.ToLower(), expected.ToLower());
@@ -76,7 +76,7 @@ namespace DiabeticAssessmentAPITests.UnitTests
             };
 
             //Act
-            var result = diabeteReportService.GetDiabeteReportByPatientId(infoPatientDTO, contenuNoteDTOs);
+            var result = diabeteReportService.GetDiabeteRisk(infoPatientDTO, contenuNoteDTOs);
 
             //Assert
             Assert.Equal(result.ToLower(), expected.ToLower());
@@ -103,7 +103,7 @@ namespace DiabeticAssessmentAPITests.UnitTests
             };
 
             //Act
-            var result = diabeteReportService.GetDiabeteReportByPatientId(infoPatientDTO, contenuNoteDTOs);
+            var result = diabeteReportService.GetDiabeteRisk(infoPatientDTO, contenuNoteDTOs);
 
             //Assert
             Assert.Equal(result.ToLower(), expected.ToLower());
@@ -130,7 +130,7 @@ namespace DiabeticAssessmentAPITests.UnitTests
             };
 
             //Act
-            var result = diabeteReportService.GetDiabeteReportByPatientId(infoPatientDTO, contenuNoteDTOs);
+            var result = diabeteReportService.GetDiabeteRisk(infoPatientDTO, contenuNoteDTOs);
 
             //Assert
             Assert.Equal(result.ToLower(), expected.ToLower());
@@ -158,7 +158,7 @@ namespace DiabeticAssessmentAPITests.UnitTests
             };
 
             //Act
-            var result = diabeteReportService.GetDiabeteReportByPatientId(infoPatientDTO, contenuNoteDTOs);
+            var result = diabeteReportService.GetDiabeteRisk(infoPatientDTO, contenuNoteDTOs);
 
             //Assert
             Assert.Equal(result.ToLower(), expected.ToLower());
@@ -186,7 +186,7 @@ namespace DiabeticAssessmentAPITests.UnitTests
             };
 
             //Act
-            var result = diabeteReportService.GetDiabeteReportByPatientId(infoPatientDTO, contenuNoteDTOs);
+            var result = diabeteReportService.GetDiabeteRisk(infoPatientDTO, contenuNoteDTOs);
 
             //Assert
             Assert.Equal(result.ToLower(), expected.ToLower());
@@ -214,7 +214,7 @@ namespace DiabeticAssessmentAPITests.UnitTests
             };
 
             //Act
-            var result = diabeteReportService.GetDiabeteReportByPatientId(infoPatientDTO, contenuNoteDTOs);
+            var result = diabeteReportService.GetDiabeteRisk(infoPatientDTO, contenuNoteDTOs);
 
             //Assert
             Assert.Equal(result.ToLower(), expected.ToLower());

@@ -6,11 +6,11 @@ namespace DiabeticAssessmentAPI.Services
 {
     public class DiabetesAlgorihmeService : IDiabetesAlgorihmeService
     {
-        public string GetDiabeteReportByPatientId(InfoPatientDTO infoPatient, List<ContenuNotePatientDTO> contenuNoteDTOs)
+        public string GetDiabeteRisk(InfoPatientDTO infoPatient, List<ContenuNotePatientDTO> contenuNoteDTOs)
         {
-            int age = CalculateAge(infoPatient.DateNaissance);
-            int count = CountTriggers(contenuNoteDTOs);
-
+            var age = CalculateAge(infoPatient.DateNaissance);
+            var triggers = getTriggers(contenuNoteDTOs);
+            var count = triggers.Count();
             if (age >= 30)
                 return EvaluateRiskForAgeGreaterThanThirty(count);
 
@@ -26,13 +26,12 @@ namespace DiabeticAssessmentAPI.Services
             return age;
         }
 
-        private int CountTriggers(List<ContenuNotePatientDTO> contenuNoteDTOs)
+        public IEnumerable<string> getTriggers(List<ContenuNotePatientDTO> contenuNoteDTOs)
         {
             return Declencheurs.Liste
                 .Where(declencheur => contenuNoteDTOs
                     .Any(note => note.Contenu.Contains(declencheur, StringComparison.OrdinalIgnoreCase)))
-                .Distinct()
-                .Count();
+                .Distinct();
         }
 
         private string EvaluateRiskForAgeGreaterThanThirty(int count)

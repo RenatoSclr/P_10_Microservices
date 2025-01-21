@@ -4,6 +4,7 @@ namespace DiabeticAssessmentAPI.Services.IServices
 {
     public interface IDiabetesAlgorihmeService
     {
-        string GetDiabeteReportByPatientId(InfoPatientDTO infoPatient, List<ContenuNotePatientDTO> contenuNoteDTOs);
+        string GetDiabeteRisk(InfoPatientDTO infoPatient, List<ContenuNotePatientDTO> contenuNoteDTOs);
+        IEnumerable<string> getTriggers(List<ContenuNotePatientDTO> contenuNoteDTOs);
     }
 }

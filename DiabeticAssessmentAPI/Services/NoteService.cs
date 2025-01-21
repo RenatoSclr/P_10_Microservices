@@ -2,7 +2,6 @@
 using DiabeticAssessmentAPI.Domain.Dtos;
 using DiabeticAssessmentAPI.Services.IServices;
 using Newtonsoft.Json;
-using System.Net.Http;
 
 namespace DiabeticAssessmentAPI.Services
 {
@@ -22,7 +21,8 @@ namespace DiabeticAssessmentAPI.Services
                 return Result.Failure<List<ContenuNotePatientDTO>>($"Erreur lors de l'appel GET : {response.StatusCode}");
 
             var data = await response.Content.ReadAsStringAsync();
-            return Result.Success(JsonConvert.DeserializeObject<List<ContenuNotePatientDTO>>(data));
+            var result = JsonConvert.DeserializeObject<List<ContenuNotePatientDTO>>(data);
+            return Result.Success(result);
         }
     }
 }

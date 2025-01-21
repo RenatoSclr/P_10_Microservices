@@ -5,6 +5,6 @@ namespace DiabeticAssessmentAPI.Services.IServices
 {
     public interface IDiabeteReportService
     {
-        Task<Result<InfoPatientDTO>> GetReportDiabete(Guid patientId);
+        Task<Result<ReportDiabeteDTO>> GetReportDiabete(Guid patientId);
     }
 }

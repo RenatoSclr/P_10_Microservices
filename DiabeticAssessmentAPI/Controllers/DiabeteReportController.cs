@@ -8,19 +8,16 @@ namespace DiabeticAssessmentAPI.Controllers
     public class DiabeteReportController : Controller
     {
         private readonly IDiabeteReportService _diabeteService;
-        private readonly INoteService _niabeteService;
         public DiabeteReportController(IDiabeteReportService diabeteService, INoteService noteService)
         {
             _diabeteService = diabeteService;
-            _niabeteService = noteService;   
         }
 
         [HttpGet("{patientId}")]
         public async Task<IActionResult> GetRapportDiabete(Guid patientId)
         {
-            var result = await _niabeteService.GetContenuNotePatientAsync(patientId);
-            Console.WriteLine();
-            return Ok(result.Value);
+            var result = await _diabeteService.GetReportDiabete(patientId);
+            return result.IsSuccess ? Ok(result.Value) : NotFound(result.Error);
         }
     }
 }

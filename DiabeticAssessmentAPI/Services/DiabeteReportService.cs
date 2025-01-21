@@ -8,20 +8,40 @@ namespace DiabeticAssessmentAPI.Services
     {
         private readonly IPatientService _patientService;
         private readonly INoteService _noteService;
-        public DiabeteReportService(IPatientService patientService, INoteService noteService)
+        private readonly IDiabetesAlgorihmeService _diabetesAlgorihmeService;
+        public DiabeteReportService(IPatientService patientService, INoteService noteService, IDiabetesAlgorihmeService diabetesAlgorihmeService)
         {
             _patientService = patientService;
             _noteService = noteService;  
+            _diabetesAlgorihmeService = diabetesAlgorihmeService;
         }
 
-        public async Task<Result<InfoPatientDTO>> GetReportDiabete(Guid patientId)
+        public async Task<Result<ReportDiabeteDTO>> GetReportDiabete(Guid patientId)
         {
             var infoPatient = await _patientService.GetInfoPatientAsync(patientId);
 
             if (infoPatient.IsFailure)
-                return Result.Failure<InfoPatientDTO>("Impossible de recuperer les informations du patient");
+                return Result.Failure<ReportDiabeteDTO>("Impossible de recuperer les informations du patient");
 
-            return infoPatient.Value;
+            var contentNotePatient = await _noteService.GetContenuNotePatientAsync(patientId);
+
+            if(contentNotePatient.IsFailure)
+                return Result.Failure<ReportDiabeteDTO>("Impossible de recuperer le contenu des notes du patient");
+
+            var diabeteRisk = _diabetesAlgorihmeService.GetDiabeteRisk(infoPatient.Value, contentNotePatient.Value);
+
+            var triggers = _diabetesAlgorihmeService.getTriggers(contentNotePatient.Value);
+
+            return MapToReportDiabete(diabeteRisk, triggers);
+        }
+
+        private ReportDiabeteDTO MapToReportDiabete(string diabeteRisk, IEnumerable<string> triggers)
+        {
+            return new ReportDiabeteDTO
+            {
+                NiveauRisque = diabeteRisk,
+                Declencheurs = triggers.ToList()
+            };
         }
     }
 }
