@@ -1,5 +1,6 @@
 ﻿using Frontend.Models;
 using Frontend.ViewModel.NotesViewModel;
+using Frontend.ViewModel.DiabeteViewModel;
 
 namespace Frontend.ViewModel
 {
@@ -13,6 +14,7 @@ namespace Frontend.ViewModel
         public string Adresse { get; set; }
         public string NumeroTelephone { get; set; }
         public IEnumerable<NoteSummary> Notes { get; set; }
+        public ReportDiabeteViewModel ReportDiabete { get; set; }
 
     }
 }

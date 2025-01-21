@@ -88,9 +88,9 @@
       }
     },
     {
-      "UpstreamPathTemplate": "/diabetereport/{id}",
+      "UpstreamPathTemplate": "/DiabeteReport/{id}",
       "UpstreamHttpMethod": [ "Get" ],
-      "DownstreamPathTemplate": "/diabetereport/{id}",
+      "DownstreamPathTemplate": "/DiabeteReport/{id}",
       "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
         {

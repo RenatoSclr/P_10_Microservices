@@ -13,10 +13,10 @@ namespace DiabeticAssessmentAPI.Controllers
             _diabeteService = diabeteService;
         }
 
-        [HttpGet("{patientId}")]
-        public async Task<IActionResult> GetRapportDiabete(Guid patientId)
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetRapportDiabete(Guid id)
         {
-            var result = await _diabeteService.GetReportDiabete(patientId);
+            var result = await _diabeteService.GetReportDiabete(id);
             return result.IsSuccess ? Ok(result.Value) : NotFound(result.Error);
         }
     }

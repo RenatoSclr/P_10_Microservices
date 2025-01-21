@@ -5,16 +5,19 @@ using Frontend.ViewModel.PatientViewModel;
 using Frontend.ViewModel;
 using Frontend.Models;
 using Microsoft.IdentityModel.Tokens;
+using Frontend.ViewModel.DiabeteViewModel;
 
 public class PatientService : IPatientService
 {
     private readonly IHttpService _httpService;
     private readonly INoteService _noteService;
+    private readonly IDiabeteService _diabeteService;
 
-    public PatientService(IHttpService httpService, INoteService noteService)
+    public PatientService(IHttpService httpService, INoteService noteService, IDiabeteService diabeteService)
     {
         _httpService = httpService;
         _noteService = noteService;
+        _diabeteService = diabeteService;
     }
 
     public async Task<Result<PatientDetailsViewModel>> GetDetailsPatient(Guid id, string token)
@@ -29,7 +32,12 @@ public class PatientService : IPatientService
         if (patientNotes.IsFailure)
             return Result.Failure<PatientDetailsViewModel>("Erreur lors de la récupération des notes.");
 
-        return Result.Success(await MergeToPatientDetailsViewModel(patientResult.Value, patientNotes.Value));
+        var reportDiabete = await _diabeteService.GetReportDiabeteByPatientId(id, token);
+
+        if (reportDiabete.IsFailure)
+            return Result.Failure<PatientDetailsViewModel>("Erreur Lors de la récupération du rapport de diabete");
+
+        return Result.Success(await MergeToPatientDetailsViewModel(patientResult.Value, patientNotes.Value, reportDiabete.Value));
     }
 
     public async Task<Result<List<PatientListViewModel>>> GetPatientList(string token)
@@ -104,7 +112,7 @@ public class PatientService : IPatientService
     }
 
 
-    private async Task<PatientDetailsViewModel> MergeToPatientDetailsViewModel(Patient patient, List<NoteSummary> notes)
+    private async Task<PatientDetailsViewModel> MergeToPatientDetailsViewModel(Patient patient, List<NoteSummary> notes, ReportDiabeteViewModel reportDiabete)
     {
         return new PatientDetailsViewModel
         {
@@ -115,7 +123,8 @@ public class PatientService : IPatientService
             Notes = notes,
             Nom = patient.Nom,
             NumeroTelephone = patient.NumeroTelephone,
-            Prenom = patient.Prenom
+            Prenom = patient.Prenom,
+            ReportDiabete = reportDiabete
         };
     }
 
