@@ -18,67 +18,57 @@ namespace PatientsAPI.Controllers
         public async Task<ActionResult> CreatePatients([FromBody] CreateOrUpdatePatientDTO patients)
         {
             if (!ModelState.IsValid)
-            {
                 return BadRequest(ModelState);
-            }
 
-            await _patientService.AddPatient(patients);
-            return Ok(patients);
+            var result = await _patientService.AddPatient(patients);
+            return result.IsSuccess ? Ok(patients) : BadRequest(result.Error);
         }
 
         [HttpGet("{id}")]
         public async Task<ActionResult> GetPatientsById(Guid id)
         {
-            var patients = await _patientService.GetPatientDTOById(id);
-            if (patients == null) { return NotFound($"Le patient avec le numero d'identifiant : {id}, est introuvable"); }
-
-            return Ok(patients);
+            var result = await _patientService.GetPatientDTOById(id);
+            return result.IsSuccess ? Ok(result.Value) : NotFound(result.Error);
         }
 
         [HttpGet]
         public async Task<ActionResult> GetAllPatients()
         {
-            var patientsList = await _patientService.GetAllPatients();
-            return Ok(patientsList);
+            var result = await _patientService.GetAllPatients();
+            return result.IsSuccess ? Ok(result.Value) : NotFound(result.Error);
         }
 
         [HttpGet("{id}/minimal-info")]
         public async Task<ActionResult> GetMinimalInfo(Guid id)
         {
-            var patients = await _patientService.GetPatientMinimalInfoDTOById(id);
-            if (patients == null) { return NotFound($"Le patient avec le numero d'identifiant : {id}, est introuvable"); }
-            return Ok(patients);
+            var result = await _patientService.GetPatientMinimalInfoDTOById(id);
+            return result.IsSuccess ? Ok(result.Value) : NotFound(result.Error);
         }
 
         [HttpPut("{id}")]
         public async Task<ActionResult> UpdatePatients(Guid id, [FromBody] CreateOrUpdatePatientDTO patients)
         {
             if (!ModelState.IsValid)
-            {
                 return BadRequest(ModelState);
-            }
 
-            var patient = await _patientService.GetPatientById(id);
-            if (patient == null)
-            {
-                return NotFound($"Le patient avec l'id {id} est introuvable");
-            }
+            var resultPatient = await _patientService.GetPatientById(id);
 
-            await _patientService.UpdatePatient(patients, id);
-            return Ok($"Le patient {patients.Nom} {patients.Prenom} a ete mis a jour avec succee");
+            if (resultPatient.IsFailure)
+                return NotFound(resultPatient.Error);
+
+            var result = await _patientService.UpdatePatient(patients, id);
+            return result.IsSuccess ? Ok(patients) : BadRequest(result.Error);
         }
 
         [HttpDelete("{id}")]
         public async Task<ActionResult> DeletePatient(Guid id)
         {
-            var patient = await _patientService.GetPatientById(id);
-            if (patient is null)
-            {
-                return NotFound($"Le patient avec l'id {id} est introuvable");
-            }
+            var resultpatient = await _patientService.GetPatientById(id);
+            if (resultpatient.IsFailure)
+                return NotFound(resultpatient.Error);
 
-            await _patientService.DeletePatient(patient);
-            return Ok($"Patient {patient.Nom} {patient.Prenom} supprimer avec succee");
+            var result = await _patientService.DeletePatient(resultpatient.Value);
+            return result.IsSuccess ? Ok($"Patient {resultpatient.Value.Nom} {resultpatient.Value.Prenom} supprimer avec succee"): BadRequest(result.Error);  
 
         }
     }
