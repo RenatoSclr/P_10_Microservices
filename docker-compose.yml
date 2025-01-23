@@ -1,0 +1,38 @@
+version: '3.8'
+
+services:
+  patientsapi:
+    image: ${DOCKER_REGISTRY-}patientsapi
+    build:
+      context: ./PatientsAPI
+      dockerfile: Dockerfile
+    ports:
+      - "5000:5000" 
+      - "5001:5001"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ConnectionStrings__DefaultConnection=Server=sqlserver,1433;Database=PatientsDB;User Id=sa;Password=Password123!;MultipleActiveResultSets=true;TrustServerCertificate=True;
+    depends_on:
+      - sqlserver  
+    networks:
+      - patientnetwork
+
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: sqlserver
+    ports:
+      - "1433:1433" 
+    environment:
+      ACCEPT_EULA: "Y"
+      MSSQL_SA_PASSWORD: "Password123!"
+    volumes:
+      - sqlvolume:/var/opt/mssql 
+    networks:
+      - patientnetwork
+
+
+networks:
+  patientnetwork:
+  
+volumes:
+  sqlvolume:    

@@ -4,6 +4,7 @@ using PatientsAPI.Domain.IRepository;
 using PatientsAPI.Repository;
 using PatientsAPI.Services.IServices;
 using PatientsAPI.Services;
+using PatientsAPI.Domain;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -33,6 +34,12 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
+
+using (var scope = app.Services.CreateScope())
+{
+    var context = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+    context.Database.Migrate();
+}
 
 app.MapControllers();
 

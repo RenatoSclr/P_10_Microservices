@@ -1,5 +1,4 @@
 ﻿using MongoDB.Driver;
-using NotesAPI.Data;
 using NotesAPI.Domain;
 
 namespace NotesAPI.Data
@@ -60,7 +59,6 @@ namespace NotesAPI.Data
                     new Note
                     {
                         PatientId = new Guid("94a687bd-5ad7-4596-924d-08dd2e6bc8f4"),
-  
                         Contenu = "Le patient déclare qu'il a mal au dos lorsqu'il reste assis pendant longtemps",
                         DateCreatiom = DateTime.UtcNow
                     },

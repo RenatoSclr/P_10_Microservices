@@ -33,7 +33,7 @@ namespace Identity.Services
             };
 
             var authSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(_configuration["Jwt:SecretKey"]));
-            var expirationTimeStamp = DateTime.Now.AddMinutes(5);
+            var expirationTimeStamp = DateTime.Now.AddHours(8);
             var token = new JwtSecurityToken(
                 issuer: _configuration["Jwt:Issuer"],
                 expires: expirationTimeStamp,
