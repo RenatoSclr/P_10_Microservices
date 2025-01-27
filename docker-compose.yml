@@ -30,9 +30,38 @@ services:
     networks:
       - patientnetwork
 
+  notesapi:
+      image: ${DOCKER_REGISTRY-}notesapi
+      container_name: NotesApi
+      build:
+        context: ./NotesAPI
+        dockerfile: Dockerfile
+      ports:
+        - "5002:5002" 
+        - "5003:5003"
+      environment:
+        - ASPNETCORE_ENVIRONMENT=Development
+        - ConnectionStrings__MongoDB=mongodb://mongodb-notes:27017
+        - MongoDB__DatabaseName=NotesDB
+      depends_on:
+        - mongodb-notes 
+      networks:
+        - notenetwork
+
+  mongodb-notes:
+    image: mongo:latest
+    container_name: MongoDb_NotesAPI
+    ports:
+      - "27017:27017" 
+    volumes:
+      - mongovolume:/data/db
+    networks:
+      - notenetwork
 
 networks:
   patientnetwork:
+  notenetwork:
   
 volumes:
-  sqlvolume:    
+  sqlvolume:   
+  mongovolume:
