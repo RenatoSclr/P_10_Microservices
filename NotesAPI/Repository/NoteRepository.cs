@@ -55,6 +55,9 @@ namespace NotesAPI.Repository
                     .Sort(Builders<Note>.Sort.Descending(n => n.DateCreatiom))
                     .ToListAsync();
 
+                if (notes.Count == 0)
+                    return Result.Failure<List<Note>>("No notes found for the specified patient, Patient may not exist!");
+
                 return Result.Success(notes);
             }
             catch (Exception ex)

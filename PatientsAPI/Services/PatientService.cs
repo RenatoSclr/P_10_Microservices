@@ -113,7 +113,7 @@ namespace PatientsAPI.Services
             var patient = existingPatient;
             patient.Nom = patientDto.Nom;
             patient.Prenom = patientDto.Prenom;
-            patient.DateDeNaissance = patient.DateDeNaissance;
+            patient.DateDeNaissance = patientDto.DateDeNaissance;
             patient.Adresse = patientDto.Adresse;
             patient.NumeroTelephone = patientDto.NumeroTelephone;
             return patient;
