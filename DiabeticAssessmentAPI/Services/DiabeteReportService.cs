@@ -30,18 +30,7 @@ namespace DiabeticAssessmentAPI.Services
 
             var diabeteRisk = _diabetesAlgorihmeService.GetDiabeteRisk(infoPatient.Value, contentNotePatient.Value);
 
-            var triggers = _diabetesAlgorihmeService.getTriggers(contentNotePatient.Value);
-
-            return MapToReportDiabete(diabeteRisk, triggers);
-        }
-
-        private ReportDiabeteDTO MapToReportDiabete(string diabeteRisk, IEnumerable<string> triggers)
-        {
-            return new ReportDiabeteDTO
-            {
-                NiveauRisque = diabeteRisk,
-                Declencheurs = triggers.ToList()
-            };
+            return Result.Success(diabeteRisk);
         }
     }
 }

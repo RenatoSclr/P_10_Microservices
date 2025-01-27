@@ -10,7 +10,10 @@ namespace DiabeticAssessmentAPITests.UnitTests
         [Fact]
         public async Task Should_return_None_When_ContenuNotePatientDTO_Contains_Max_One_Triggers()
         {
-            var expected = "None";
+            var expected = new ReportDiabeteDTO
+            {
+                NiveauRisque = "None",
+            };
 
             //Arrange
             var diabeteReportService = new DiabetesAlgorihmeService();
@@ -26,13 +29,16 @@ namespace DiabeticAssessmentAPITests.UnitTests
             var result = diabeteReportService.GetDiabeteRisk(infoPatientDTO, contenuNoteDTOs);
 
             //Assert
-            Assert.Equal(result.ToLower(), expected.ToLower());
+            Assert.Equal(expected.NiveauRisque, result.NiveauRisque);
         }
 
         [Fact]
         public async Task Should_return_Borderline_When_ContenuNotePatientDTO_Contains_Between_Two_and_Five_Triggers_and_AgePatient_greater_than_thirty()
         {
-            var expected = "Borderline";
+            var expected = new ReportDiabeteDTO
+            {
+                NiveauRisque = "Borderline",
+            };
 
             //Arrange
             var diabeteReportService = new DiabetesAlgorihmeService();
@@ -52,13 +58,16 @@ namespace DiabeticAssessmentAPITests.UnitTests
             var result = diabeteReportService.GetDiabeteRisk(infoPatientDTO, contenuNoteDTOs);
 
             //Assert
-            Assert.Equal(result.ToLower(), expected.ToLower());
+            Assert.Equal(result.NiveauRisque, expected.NiveauRisque);
         }
 
         [Fact]
         public async Task Should_return_InDanger_When_ContenuNotePatientDTO_Contains_Three_Triggers_and_AgePatient_Less_than_thirty_And_Genre_is_Homme()
         {
-            var expected = "InDanger";
+            var expected = new ReportDiabeteDTO
+            {
+                NiveauRisque = "InDanger",
+            };
 
             //Arrange
             var diabeteReportService = new DiabetesAlgorihmeService();
@@ -79,13 +88,16 @@ namespace DiabeticAssessmentAPITests.UnitTests
             var result = diabeteReportService.GetDiabeteRisk(infoPatientDTO, contenuNoteDTOs);
 
             //Assert
-            Assert.Equal(result.ToLower(), expected.ToLower());
+            Assert.Equal(result.NiveauRisque, expected.NiveauRisque);
         }
 
         [Fact]
         public async Task Should_return_InDanger_When_ContenuNotePatientDTO_Contains_Four_Triggers_and_AgePatient_Less_than_thirty_And_Genre_is_Femme()
         {
-            var expected = "InDanger";
+            var expected = new ReportDiabeteDTO
+            {
+                NiveauRisque = "InDanger",
+            };
 
             //Arrange
             var diabeteReportService = new DiabetesAlgorihmeService();
@@ -106,13 +118,16 @@ namespace DiabeticAssessmentAPITests.UnitTests
             var result = diabeteReportService.GetDiabeteRisk(infoPatientDTO, contenuNoteDTOs);
 
             //Assert
-            Assert.Equal(result.ToLower(), expected.ToLower());
+            Assert.Equal(result.NiveauRisque, expected.NiveauRisque);
         }
 
         [Fact]
         public async Task Should_return_InDanger_When_ContenuNotePatientDTO_Contains_Six_Or_Seven_Triggers_and_AgePatient_Greater_than_thirty()
         {
-            var expected = "InDanger";
+            var expected = new ReportDiabeteDTO
+            {
+                NiveauRisque = "InDanger",
+            };
 
             //Arrange
             var diabeteReportService = new DiabetesAlgorihmeService();
@@ -133,14 +148,16 @@ namespace DiabeticAssessmentAPITests.UnitTests
             var result = diabeteReportService.GetDiabeteRisk(infoPatientDTO, contenuNoteDTOs);
 
             //Assert
-            Assert.Equal(result.ToLower(), expected.ToLower());
+            Assert.Equal(result.NiveauRisque, expected.NiveauRisque);
         }
 
         [Fact]
         public async Task Should_return_EarlyOnset_When_ContenuNotePatientDTO_Contains_Five_Or_More_Triggers_and_AgePatient_Less_than_thirty_And_Genre_is_Homme()
         {
-            var expected = "EarlyOnset";
-
+            var expected = new ReportDiabeteDTO
+            {
+                NiveauRisque = "EarlyOnset",
+            };
             //Arrange
             var diabeteReportService = new DiabetesAlgorihmeService();
             InfoPatientDTO infoPatientDTO = new InfoPatientDTO
@@ -161,13 +178,16 @@ namespace DiabeticAssessmentAPITests.UnitTests
             var result = diabeteReportService.GetDiabeteRisk(infoPatientDTO, contenuNoteDTOs);
 
             //Assert
-            Assert.Equal(result.ToLower(), expected.ToLower());
+            Assert.Equal(result.NiveauRisque, expected.NiveauRisque);
         }
 
         [Fact]
         public async Task Should_return_EarlyOnset_When_ContenuNotePatientDTO_Contains_Seven_Or_More_Triggers_and_AgePatient_Less_than_thirty_And_Genre_is_Femme()
         {
-            var expected = "EarlyOnset";
+            var expected = new ReportDiabeteDTO
+            {
+                NiveauRisque = "EarlyOnset",
+            };
 
             //Arrange
             var diabeteReportService = new DiabetesAlgorihmeService();
@@ -189,13 +209,16 @@ namespace DiabeticAssessmentAPITests.UnitTests
             var result = diabeteReportService.GetDiabeteRisk(infoPatientDTO, contenuNoteDTOs);
 
             //Assert
-            Assert.Equal(result.ToLower(), expected.ToLower());
+            Assert.Equal(result.NiveauRisque, expected.NiveauRisque);
         }
 
         [Fact]
         public async Task Should_return_EarlyOnset_When_ContenuNotePatientDTO_Contains_Eight_Or_More_Triggers_and_AgePatient_Greater_than_thirty()
         {
-            var expected = "EarlyOnset";
+            var expected = new ReportDiabeteDTO
+            {
+                NiveauRisque = "EarlyOnset",
+            };
 
             //Arrange
             var diabeteReportService = new DiabetesAlgorihmeService();
@@ -217,7 +240,7 @@ namespace DiabeticAssessmentAPITests.UnitTests
             var result = diabeteReportService.GetDiabeteRisk(infoPatientDTO, contenuNoteDTOs);
 
             //Assert
-            Assert.Equal(result.ToLower(), expected.ToLower());
+            Assert.Equal(result.NiveauRisque, expected.NiveauRisque);
         }
     }
 }
