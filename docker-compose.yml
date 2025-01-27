@@ -11,24 +11,24 @@ services:
       - "5001:5001"
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
-      - ConnectionStrings__DefaultConnection=Server=sqlserver,1433;Database=PatientsDB;User Id=sa;Password=Password123!;MultipleActiveResultSets=true;TrustServerCertificate=True;
+      - ConnectionStrings__DefaultConnection=Server=patient-sqlserver;Database=PatientsDB;User Id=sa;Password=Password123!;MultipleActiveResultSets=true;TrustServerCertificate=True;
     depends_on:
-      - sqlserver  
+      - patient-sqlserver  
     networks:
-      - patientnetwork
+      - commomnetwork
 
-  sqlserver:
+  patient-sqlserver:
     image: mcr.microsoft.com/mssql/server:2022-latest
-    container_name: sqlserver
+    container_name: patient-sqlserver
     ports:
       - "1433:1433" 
     environment:
       ACCEPT_EULA: "Y"
       MSSQL_SA_PASSWORD: "Password123!"
     volumes:
-      - sqlvolume:/var/opt/mssql 
+      - sqlvolume:/data/db
     networks:
-      - patientnetwork
+      - commomnetwork
 
   notesapi:
       image: ${DOCKER_REGISTRY-}notesapi
@@ -46,7 +46,7 @@ services:
       depends_on:
         - mongodb-notes 
       networks:
-        - notenetwork
+        - commomnetwork
 
   mongodb-notes:
     image: mongo:latest
@@ -56,10 +56,11 @@ services:
     volumes:
       - mongovolume:/data/db
     networks:
-      - notenetwork
+      - commomnetwork
 
   identity:
     image: ${DOCKER_REGISTRY-}identity
+    container_name: IdentityAPI
     build:
       context: .
       dockerfile: Identity/Dockerfile
@@ -68,35 +69,34 @@ services:
       - "5005:5005"
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
-      - ConnectionStrings__DefaultConnection=Server=sqlserveridentity,1434;Database=IdentityDB;User Id=sa;Password=Password123!;MultipleActiveResultSets=true;TrustServerCertificate=True;
+      - ConnectionStrings__DefaultConnection=Server=user-sqlserver;Database=UserDB;User Id=sa;Password=Password123!;MultipleActiveResultSets=true;TrustServerCertificate=True;
     depends_on:
-      - sqlserver  
+      - user-sqlserver  
     networks:
-      - identitynetwork
+      - commomnetwork
 
 
-  sqlserveridentity:
+  user-sqlserver:
     image: mcr.microsoft.com/mssql/server:2022-latest
-    container_name: sqlserveridentity
+    container_name: user-sqlserver
     ports:
-      - "1434:1434" 
+      - "1434:1433" 
     environment:
       ACCEPT_EULA: "Y"
       MSSQL_SA_PASSWORD: "Password123!"
     volumes:
-      - sqlidentityvolume:/var/opt/mssql 
+      - sqlidentityvolume:/data/db
     networks:
-      - identitynetwork
-
-
+      - commomnetwork
 
 networks:
-  patientnetwork:
-  notenetwork:
-  identitynetwork:
+  commomnetwork:
+    driver: bridge
+
   
 volumes:
   sqlvolume:   
   mongovolume:
   sqlidentityvolume:
+
 

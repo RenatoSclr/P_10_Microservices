@@ -6,7 +6,8 @@
       "serviceActions": {
         "patientsapi": "StartDebugging",
         "notesapi": "StartDebugging",
-        "identity": "StartDebugging"
+        "identity": "StartDebugging",
+        "diabeticassessmentapi": "StartDebugging"
       }
     }
   }

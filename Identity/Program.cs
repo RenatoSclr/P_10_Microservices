@@ -56,6 +56,22 @@ app.UseHttpsRedirection();
 app.UseAuthentication();
 app.UseAuthorization();
 
+using (var scope = app.Services.CreateScope())
+{
+    try
+    {
+        var context = scope.ServiceProvider.GetRequiredService<IdentityContext>();
+        context.Database.Migrate();
+        var userManager = scope.ServiceProvider.GetRequiredService<UserManager<IdentityUser>>();
+        await SeedIdentityData.Initialize(userManager);
+    }
+    catch(Exception e)
+    {
+        Console.WriteLine($"Une erreur est apparue: {e.Message}");
+    }
+    
+}
+
 app.MapControllers();
 
 app.Run();
