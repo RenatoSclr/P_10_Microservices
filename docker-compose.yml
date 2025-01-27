@@ -58,10 +58,45 @@ services:
     networks:
       - notenetwork
 
+  identity:
+    image: ${DOCKER_REGISTRY-}identity
+    build:
+      context: .
+      dockerfile: Identity/Dockerfile
+    ports:
+      - "5004:5004" 
+      - "5005:5005"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ConnectionStrings__DefaultConnection=Server=sqlserveridentity,1434;Database=IdentityDB;User Id=sa;Password=Password123!;MultipleActiveResultSets=true;TrustServerCertificate=True;
+    depends_on:
+      - sqlserver  
+    networks:
+      - identitynetwork
+
+
+  sqlserveridentity:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: sqlserveridentity
+    ports:
+      - "1434:1434" 
+    environment:
+      ACCEPT_EULA: "Y"
+      MSSQL_SA_PASSWORD: "Password123!"
+    volumes:
+      - sqlidentityvolume:/var/opt/mssql 
+    networks:
+      - identitynetwork
+
+
+
 networks:
   patientnetwork:
   notenetwork:
+  identitynetwork:
   
 volumes:
   sqlvolume:   
   mongovolume:
+  sqlidentityvolume:
+
