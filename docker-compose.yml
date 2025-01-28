@@ -7,56 +7,55 @@ services:
       context: ./PatientsAPI
       dockerfile: Dockerfile
     ports:
-      - "5000:5000" 
-      - "5001:5001"
+      - "5000:5000"
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+:5000
       - ConnectionStrings__DefaultConnection=Server=patient-sqlserver;Database=PatientsDB;User Id=sa;Password=Password123!;MultipleActiveResultSets=true;TrustServerCertificate=True;
     depends_on:
-      - patient-sqlserver  
+      - patient-sqlserver
     networks:
-      - commomnetwork
+      - commonnetwork
 
   patient-sqlserver:
     image: mcr.microsoft.com/mssql/server:2022-latest
     container_name: patient-sqlserver
     ports:
-      - "1433:1433" 
+      - "1433:1433"
     environment:
       ACCEPT_EULA: "Y"
       MSSQL_SA_PASSWORD: "Password123!"
     volumes:
       - sqlvolume:/data/db
     networks:
-      - commomnetwork
+      - commonnetwork
 
   notesapi:
-      image: ${DOCKER_REGISTRY-}notesapi
-      container_name: NotesApi
-      build:
-        context: ./NotesAPI
-        dockerfile: Dockerfile
-      ports:
-        - "5002:5002" 
-        - "5003:5003"
-      environment:
-        - ASPNETCORE_ENVIRONMENT=Development
-        - ConnectionStrings__MongoDB=mongodb://mongodb-notes:27017
-        - MongoDB__DatabaseName=NotesDB
-      depends_on:
-        - mongodb-notes 
-      networks:
-        - commomnetwork
+    image: ${DOCKER_REGISTRY-}notesapi
+    build:
+      context: ./NotesAPI
+      dockerfile: Dockerfile
+    ports:
+      - "5002:5002"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+:5002
+      - ConnectionStrings__MongoDB=mongodb://mongodb-notes:27017
+      - MongoDB__DatabaseName=NotesDB
+    depends_on:
+      - mongodb-notes
+    networks:
+      - commonnetwork
 
   mongodb-notes:
     image: mongo:latest
     container_name: MongoDb_NotesAPI
     ports:
-      - "27017:27017" 
+      - "27017:27017"
     volumes:
       - mongovolume:/data/db
     networks:
-      - commomnetwork
+      - commonnetwork
 
   identity:
     image: ${DOCKER_REGISTRY-}identity
@@ -65,38 +64,52 @@ services:
       context: .
       dockerfile: Identity/Dockerfile
     ports:
-      - "5004:5004" 
-      - "5005:5005"
+      - "5004:5004"
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+:5004
       - ConnectionStrings__DefaultConnection=Server=user-sqlserver;Database=UserDB;User Id=sa;Password=Password123!;MultipleActiveResultSets=true;TrustServerCertificate=True;
     depends_on:
-      - user-sqlserver  
+      - user-sqlserver
     networks:
-      - commomnetwork
-
+      - commonnetwork
 
   user-sqlserver:
     image: mcr.microsoft.com/mssql/server:2022-latest
     container_name: user-sqlserver
     ports:
-      - "1434:1433" 
+      - "1434:1433"
     environment:
       ACCEPT_EULA: "Y"
       MSSQL_SA_PASSWORD: "Password123!"
     volumes:
       - sqlidentityvolume:/data/db
     networks:
-      - commomnetwork
+      - commonnetwork
+
+  diabeticassessmentapi:
+    image: ${DOCKER_REGISTRY-}diabeticassessmentapi
+    build:
+      context: ./DiabeticAssessmentAPI
+      dockerfile: Dockerfile
+    ports:
+      - "5006:5006"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+:5006
+      - ServiceUrl__PatientAPI=http://patientsapi:5000
+      - ServiceUrl__NoteAPI=http://notesapi:5002
+    depends_on:
+      - patientsapi
+      - notesapi
+    networks:
+      - commonnetwork
 
 networks:
-  commomnetwork:
+  commonnetwork:
     driver: bridge
 
-  
 volumes:
-  sqlvolume:   
+  sqlvolume:
   mongovolume:
   sqlidentityvolume:
-
-
