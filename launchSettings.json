@@ -7,7 +7,9 @@
         "patientsapi": "StartDebugging",
         "notesapi": "StartDebugging",
         "identity": "StartDebugging",
-        "diabeticassessmentapi": "StartDebugging"
+        "diabeticassessmentapi": "StartDebugging",
+        "apigateway": "StartDebugging",
+        "frontend": "StartDebugging"
       }
     }
   }

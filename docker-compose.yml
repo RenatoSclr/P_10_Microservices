@@ -105,6 +105,45 @@ services:
     networks:
       - commonnetwork
 
+  apigateway:
+      image: ${DOCKER_REGISTRY-}apigateway
+      container_name: apigateway
+      build:
+        context: .
+        dockerfile: ApiGateway/Dockerfile
+      ports:
+        - "5008:5008"
+      environment:
+        - ASPNETCORE_ENVIRONMENT=Docker
+        - ASPNETCORE_URLS=http://+:5008
+      depends_on:
+        - patientsapi
+        - notesapi
+        - diabeticassessmentapi
+        - identity
+      volumes:
+        - .\ApiGateway\ocelot.docker.json:/app/ocelot.docker.json
+      networks:
+        - commonnetwork
+
+
+  frontend:
+    image: ${DOCKER_REGISTRY-}frontend
+    container_name: frontend
+    build:
+      context: .
+      dockerfile: Frontend/Dockerfile
+    ports:
+      - "5010:5010"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+:5010
+      - ServiceUrl__Gateway=http://apigateway:5008
+    depends_on:
+      - apigateway
+    networks:
+      - commonnetwork
+
 networks:
   commonnetwork:
     driver: bridge

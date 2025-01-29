@@ -116,6 +116,7 @@ namespace PatientsAPI.Services
             patient.DateDeNaissance = patientDto.DateDeNaissance;
             patient.Adresse = patientDto.Adresse;
             patient.NumeroTelephone = patientDto.NumeroTelephone;
+            patient.GenreId = patientDto.GenreType == "Homme" ? 1 : 2;
             return patient;
         }
 

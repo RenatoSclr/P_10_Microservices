@@ -19,6 +19,9 @@ namespace Frontend.Controllers
 
         public async Task<IActionResult> Index()
         {
+            
+            
+            
             var token = Request.Cookies["auth_token"];
 
             if (string.IsNullOrEmpty(token) || !_tokenProvider.IsTokenValid(token))
