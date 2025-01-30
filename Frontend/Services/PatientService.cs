@@ -35,7 +35,7 @@ public class PatientService : IPatientService
         var reportDiabete = await _diabeteService.GetReportDiabeteByPatientId(id, token);
 
         if (reportDiabete.IsFailure)
-            return Result.Failure<PatientDetailsViewModel>("Erreur Lors de la récupération du rapport de diabete");
+            return Result.Failure<PatientDetailsViewModel>("Erreur lors de la récupération du rapport de diabète");
 
         return Result.Success(await MergeToPatientDetailsViewModel(patientResult.Value, patientNotes.Value, reportDiabete.Value));
     }

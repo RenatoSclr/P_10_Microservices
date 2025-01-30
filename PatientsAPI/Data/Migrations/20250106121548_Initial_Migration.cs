@@ -54,8 +54,8 @@ namespace PatientsAPI.Migrations
                 columns: new[] { "GenreId", "GenreLabel" },
                 values: new object[,]
                 {
-                    { 1, "Homme" },
-                    { 2, "Femme" }
+                    { 1, "Masculin" },
+                    { 2, "Féminin" }
                 });
 
             migrationBuilder.CreateIndex(

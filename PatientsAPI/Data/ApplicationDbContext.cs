@@ -21,8 +21,8 @@ namespace PatientsAPI.Data
                 .HasForeignKey(p => p.GenreId);
 
             modelBuilder.Entity<Genre>().HasData(
-                  new Genre { GenreId = 1, GenreLabel = "Homme" },
-                  new Genre { GenreId = 2, GenreLabel = "Femme"}
+                  new Genre { GenreId = 1, GenreLabel = "Masculin" },
+                  new Genre { GenreId = 2, GenreLabel = "Féminin" }
               );
 
             modelBuilder.Entity<Patient>().HasData(

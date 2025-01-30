@@ -1,4 +1,5 @@
-﻿using DiabeticAssessmentAPI.Domain.Dtos;
+﻿using DiabeticAssessmentAPI.Domain;
+using DiabeticAssessmentAPI.Domain.Dtos;
 using DiabeticAssessmentAPI.Services;
 using Moq;
 using Xunit;

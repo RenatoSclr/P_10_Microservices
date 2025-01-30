@@ -1,5 +1,5 @@
 ﻿using CSharpFunctionalExtensions;
-using DiabeticAssessmentAPI.Domain.Dtos;
+using DiabeticAssessmentAPI.Domain;
 using DiabeticAssessmentAPI.Services.IServices;
 using Newtonsoft.Json;
 

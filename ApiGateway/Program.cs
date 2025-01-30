@@ -7,10 +7,15 @@ using System.Text;
 var builder = WebApplication.CreateBuilder(args);
 
 var environment = builder.Environment.EnvironmentName;
-
-string ocelotConfig = environment == "Docker"
-    ? "ocelot.json" 
-    : "ocelot.Docker.json";
+string ocelotConfig;
+if(environment == "Development")
+{
+    ocelotConfig = "ocelot.json";
+}
+else
+{
+    ocelotConfig = "ocelot.Docker.json";
+}
 
 builder.Configuration.SetBasePath(Directory.GetCurrentDirectory())
     .AddJsonFile(ocelotConfig, optional: false, reloadOnChange: true)

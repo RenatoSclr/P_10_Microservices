@@ -16,7 +16,7 @@ namespace Frontend.Services
             var result = await _httpService.GetAsync<ReportDiabeteViewModel>($"/DiabeteReport/{patientId}", token);
 
             if (result.IsFailure)
-                return Result.Failure<ReportDiabeteViewModel>("Erreur lors de la generation du rapportde diabete du patient");
+                return Result.Failure<ReportDiabeteViewModel>("Erreur lors de la génération du rapport de diabète du patient");
 
             return Result.Success(result.Value);
         }

@@ -77,8 +77,8 @@ namespace DiabeticAssessmentAPI.Services
 
         private RiskLevel EvaluateRiskForAgeLowerThanThirty(int age, string genre, int declencheurCount)
         {
-            bool isMale = genre.Equals("Homme", StringComparison.OrdinalIgnoreCase);
-            bool isFemale = genre.Equals("Femme", StringComparison.OrdinalIgnoreCase);
+            bool isMale = genre.Equals("Masculin", StringComparison.OrdinalIgnoreCase);
+            bool isFemale = genre.Equals("Féminin", StringComparison.OrdinalIgnoreCase);
 
             if (isMale)
             {
