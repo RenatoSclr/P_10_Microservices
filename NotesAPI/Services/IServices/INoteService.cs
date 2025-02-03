@@ -1,6 +1,6 @@
 ﻿using CSharpFunctionalExtensions;
 using NotesAPI.Domain;
-using NotesAPI.Domain.Dtos;
+using NotesAPI.Dtos;
 
 namespace NotesAPI.Services.IServices
 {

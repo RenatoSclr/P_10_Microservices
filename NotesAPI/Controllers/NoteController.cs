@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using NotesAPI.Domain.Dtos;
+using NotesAPI.Dtos;
 using NotesAPI.Services.IServices;
 
 namespace NotesAPI.Controllers

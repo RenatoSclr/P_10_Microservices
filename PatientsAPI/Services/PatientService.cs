@@ -1,7 +1,7 @@
 ﻿using CSharpFunctionalExtensions;
 using PatientsAPI.Domain;
-using PatientsAPI.Domain.Dtos;
 using PatientsAPI.Domain.IRepository;
+using PatientsAPI.Dtos;
 using PatientsAPI.Services.IServices;
 using System.Collections.Generic;
 
@@ -17,7 +17,7 @@ namespace PatientsAPI.Services
 
         public async Task<Result> AddPatient(CreateOrUpdatePatientDTO patientDto)
         {
-            var patient = await MapToPatientToCreate(patientDto);
+            var patient = MapToPatientToCreate(patientDto);
             var result = await _repository.AddPatient(patient);
 
             if (result.IsFailure)
@@ -43,7 +43,7 @@ namespace PatientsAPI.Services
             if (patient.IsFailure)
                 return Result.Failure<List<GetPatientDTO>>(patient.Error);
             
-            return Result.Success(await MapToPatientDTOList(patient.Value));
+            return Result.Success(MapToPatientDTOList(patient.Value));
         }
 
         public async Task<Result<Patient>> GetPatientById(Guid id)
@@ -63,7 +63,7 @@ namespace PatientsAPI.Services
             if (patient.IsFailure)
                 return Result.Failure<GetPatientDTO>(patient.Error);
 
-            return Result.Success(await MapToPatientDTO(patient.Value));
+            return Result.Success(MapToPatientDTO(patient.Value));
         }
 
         public async Task<Result<PatientMinimalInfoDTO>> GetPatientMinimalInfoDTOById(Guid id)
@@ -73,7 +73,7 @@ namespace PatientsAPI.Services
             if (patient.IsFailure)
                 return Result.Failure<PatientMinimalInfoDTO>(patient.Error);
 
-            return Result.Success(await MapToPatientMinimalInfoDTO(patient.Value));
+            return Result.Success(MapToPatientMinimalInfoDTO(patient.Value));
         }
 
         public async Task<Result> UpdatePatient(CreateOrUpdatePatientDTO patientDto, Guid id)
@@ -83,7 +83,7 @@ namespace PatientsAPI.Services
             if (patient.IsFailure)
                 return Result.Failure<GetPatientDTO>(patient.Error);
 
-            var patientUpdated = await MapToPatientToUpdate(patientDto, patient.Value);
+            var patientUpdated = MapToPatientToUpdate(patientDto, patient.Value);
             var result = await _repository.UpdatePatient(patientUpdated);
 
             if(result.IsFailure)
@@ -95,7 +95,7 @@ namespace PatientsAPI.Services
 
 
 
-        private async Task<Patient> MapToPatientToCreate(CreateOrUpdatePatientDTO patientDto) 
+        private Patient MapToPatientToCreate(CreateOrUpdatePatientDTO patientDto) 
         {
             return new Patient
             {
@@ -108,7 +108,7 @@ namespace PatientsAPI.Services
             };
         }
 
-        private async Task<Patient> MapToPatientToUpdate(CreateOrUpdatePatientDTO patientDto, Patient existingPatient)
+        private Patient MapToPatientToUpdate(CreateOrUpdatePatientDTO patientDto, Patient existingPatient)
         {
             var patient = existingPatient;
             patient.Nom = patientDto.Nom;
@@ -120,7 +120,7 @@ namespace PatientsAPI.Services
             return patient;
         }
 
-        private async Task<GetPatientDTO> MapToPatientDTO(Patient patient)
+        private GetPatientDTO MapToPatientDTO(Patient patient)
         {
             return new GetPatientDTO
             {
@@ -134,7 +134,7 @@ namespace PatientsAPI.Services
             };
         }
 
-        private async Task<PatientMinimalInfoDTO> MapToPatientMinimalInfoDTO(Patient patient)
+        private PatientMinimalInfoDTO MapToPatientMinimalInfoDTO(Patient patient)
         {
             return new PatientMinimalInfoDTO
             {
@@ -143,13 +143,13 @@ namespace PatientsAPI.Services
             };
         }
 
-        private async Task<List<GetPatientDTO>> MapToPatientDTOList(List<Patient> patients)
+        private List<GetPatientDTO> MapToPatientDTOList(List<Patient> patients)
         {
             var patientDtoList = new List<GetPatientDTO>();
 
             foreach (var patient in patients)
             {
-                patientDtoList.Add(await MapToPatientDTO(patient));
+                patientDtoList.Add(MapToPatientDTO(patient));
             }
 
             return patientDtoList;

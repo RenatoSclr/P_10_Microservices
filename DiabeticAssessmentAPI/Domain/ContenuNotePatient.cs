@@ -1,6 +1,6 @@
 ﻿namespace DiabeticAssessmentAPI.Domain
 {
-    public class ContenuNotePatientDTO
+    public class ContenuNotePatient
     {
         public string Contenu { get; set; }
     }

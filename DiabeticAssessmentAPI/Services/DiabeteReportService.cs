@@ -1,5 +1,6 @@
 ﻿using CSharpFunctionalExtensions;
-using DiabeticAssessmentAPI.Domain.Dtos;
+using DiabeticAssessmentAPI.Domain;
+using DiabeticAssessmentAPI.Dtos;
 using DiabeticAssessmentAPI.Services.IServices;
 
 namespace DiabeticAssessmentAPI.Services
@@ -28,9 +29,20 @@ namespace DiabeticAssessmentAPI.Services
             if(contentNotePatient.IsFailure)
                 return Result.Failure<ReportDiabeteDTO>("Impossible de recuperer le contenu des notes du patient");
 
-            var diabeteRisk = _diabetesAlgorihmeService.GetDiabeteRisk(infoPatient.Value, contentNotePatient.Value);
+            var reportDiabete = _diabetesAlgorihmeService.GetDiabeteRisk(infoPatient.Value, contentNotePatient.Value);
 
-            return Result.Success(diabeteRisk);
+            var reportDiabeteDto = MapToReportDiabeteDto(reportDiabete);
+
+            return Result.Success(reportDiabeteDto);
+        }
+
+        private ReportDiabeteDTO MapToReportDiabeteDto(ReportDiabete reportDiabete)
+        {
+            return new ReportDiabeteDTO
+            {
+                NiveauRisque = reportDiabete.NiveauRisque.ToString(),
+                Declencheurs = reportDiabete.Declencheurs
+            };
         }
     }
 }

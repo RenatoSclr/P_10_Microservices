@@ -1,4 +1,4 @@
-﻿namespace PatientsAPI.Domain.Dtos
+﻿namespace PatientsAPI.Dtos
 {
     public class PatientMinimalInfoDTO
     {

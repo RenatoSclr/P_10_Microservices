@@ -1,8 +1,7 @@
-﻿namespace PatientsAPI.Domain.Dtos
+﻿namespace PatientsAPI.Dtos
 {
-    public class GetPatientDTO
+    public class CreateOrUpdatePatientDTO
     {
-        public Guid PatientId { get; set; }
         public string Nom { get; set; }
         public string Prenom { get; set; }
         public DateTime DateDeNaissance { get; set; }

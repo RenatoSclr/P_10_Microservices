@@ -1,6 +1,6 @@
 ﻿using CSharpFunctionalExtensions;
 using PatientsAPI.Domain;
-using PatientsAPI.Domain.Dtos;
+using PatientsAPI.Dtos;
 
 namespace PatientsAPI.Services.IServices
 {

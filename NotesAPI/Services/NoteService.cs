@@ -1,7 +1,7 @@
 ﻿using CSharpFunctionalExtensions;
 using NotesAPI.Domain;
-using NotesAPI.Domain.Dtos;
 using NotesAPI.Domain.IRepository;
+using NotesAPI.Dtos;
 using NotesAPI.Services.IServices;
 
 namespace NotesAPI.Services

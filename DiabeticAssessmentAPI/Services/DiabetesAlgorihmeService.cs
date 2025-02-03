@@ -1,20 +1,11 @@
 ﻿using DiabeticAssessmentAPI.Domain;
-using DiabeticAssessmentAPI.Domain.Dtos;
 using DiabeticAssessmentAPI.Services.IServices;
 
 namespace DiabeticAssessmentAPI.Services
 {
     public class DiabetesAlgorihmeService : IDiabetesAlgorihmeService
     {
-        public enum RiskLevel
-        {
-            None,
-            Borderline,
-            InDanger,
-            EarlyOnset
-        }
-
-        public ReportDiabeteDTO GetDiabeteRisk(InfoPatientDTO infoPatient, List<ContenuNotePatientDTO> contenuNoteDTOs)
+        public ReportDiabete GetDiabeteRisk(InfoPatient infoPatient, List<ContenuNotePatient> contenuNoteDTOs)
         {
             var age = CalculateAge(infoPatient.DateNaissance);
             var triggers = GetTriggers(contenuNoteDTOs);
@@ -29,9 +20,9 @@ namespace DiabeticAssessmentAPI.Services
                 resultRisk = EvaluateRiskForAgeLowerThanThirty(age, infoPatient.Genre, count);
             }     
             
-            return new ReportDiabeteDTO
+            return new ReportDiabete
             {
-                NiveauRisque = resultRisk.ToString(),
+                NiveauRisque = resultRisk,
                 Declencheurs = triggers.ToList()
             };
         }
@@ -45,7 +36,7 @@ namespace DiabeticAssessmentAPI.Services
             return age;
         }
 
-        private IEnumerable<string> GetTriggers(List<ContenuNotePatientDTO> contenuNoteDTOs)
+        private IEnumerable<string> GetTriggers(List<ContenuNotePatient> contenuNoteDTOs)
         {
             return Declencheurs.Liste
                 .Where(declencheur => contenuNoteDTOs.Any(note =>

@@ -1,4 +1,4 @@
-﻿namespace Identity.Domain.Dtos
+﻿namespace Identity.Dtos
 {
     public class LoginModel
     {

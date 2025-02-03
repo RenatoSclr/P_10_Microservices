@@ -1,5 +1,5 @@
 ﻿using CSharpFunctionalExtensions;
-using DiabeticAssessmentAPI.Domain.Dtos;
+using DiabeticAssessmentAPI.Dtos;
 
 namespace DiabeticAssessmentAPI.Services.IServices
 {

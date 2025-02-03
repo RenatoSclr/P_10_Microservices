@@ -5,6 +5,6 @@ namespace DiabeticAssessmentAPI.Services.IServices
 {
     public interface INoteService
     {
-        Task<Result<List<ContenuNotePatientDTO>>> GetContenuNotePatientAsync(Guid patientId);
+        Task<Result<List<ContenuNotePatient>>> GetContenuNotePatientAsync(Guid patientId);
     }
 }

@@ -1,5 +1,5 @@
 ﻿using Identity.Domain;
-using Identity.Domain.Dtos;
+using Identity.Dtos;
 
 namespace Identity.Services.IServices
 {

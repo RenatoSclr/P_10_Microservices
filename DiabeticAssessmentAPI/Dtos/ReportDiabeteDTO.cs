@@ -1,4 +1,4 @@
-﻿namespace DiabeticAssessmentAPI.Domain.Dtos
+﻿namespace DiabeticAssessmentAPI.Dtos
 {
     public class ReportDiabeteDTO
     {

@@ -1,5 +1,5 @@
 ﻿using Identity.Domain;
-using Identity.Domain.Dtos;
+using Identity.Dtos;
 using Identity.Services.IServices;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;

@@ -1,4 +1,4 @@
-﻿using Identity.Domain.Dtos;
+﻿using Identity.Dtos;
 using Identity.Services.IServices;
 using Microsoft.AspNetCore.Mvc;
 

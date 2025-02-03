@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using PatientsAPI.Domain.Dtos;
+using PatientsAPI.Dtos;
 using PatientsAPI.Services.IServices;
 
 namespace PatientsAPI.Controllers

@@ -4,7 +4,6 @@ using PatientsAPI.Domain.IRepository;
 using PatientsAPI.Repository;
 using PatientsAPI.Services.IServices;
 using PatientsAPI.Services;
-using PatientsAPI.Domain;
 
 var builder = WebApplication.CreateBuilder(args);
 

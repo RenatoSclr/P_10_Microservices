@@ -1,4 +1,4 @@
-﻿namespace NotesAPI.Domain.Dtos
+﻿namespace NotesAPI.Dtos
 {
     public class PatientNoteContentDTO
     {

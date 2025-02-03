@@ -12,16 +12,16 @@ namespace DiabeticAssessmentAPI.Services
         {
             _httpClientFactory = httpClientFactory;
         }
-        public async Task<Result<List<ContenuNotePatientDTO>>> GetContenuNotePatientAsync(Guid patientId)
+        public async Task<Result<List<ContenuNotePatient>>> GetContenuNotePatientAsync(Guid patientId)
         {
             var client = _httpClientFactory.CreateClient("NoteAPI");
             var response = await client.GetAsync($"note/patient/{patientId}/content");
 
             if (!response.IsSuccessStatusCode)
-                return Result.Failure<List<ContenuNotePatientDTO>>($"Erreur lors de l'appel GET : {response.StatusCode}");
+                return Result.Failure<List<ContenuNotePatient>>($"Erreur lors de l'appel GET : {response.StatusCode}");
 
             var data = await response.Content.ReadAsStringAsync();
-            var result = JsonConvert.DeserializeObject<List<ContenuNotePatientDTO>>(data);
+            var result = JsonConvert.DeserializeObject<List<ContenuNotePatient>>(data);
             return Result.Success(result);
         }
     }
