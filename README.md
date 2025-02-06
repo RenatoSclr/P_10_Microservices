@@ -2,16 +2,15 @@
 **🚑 Medilabo Solution** est une application permettant d’identifier les patients à risque de développer un diabète de type 2. Elle aide les médecins à gérer les informations des patients, ajouter des notes médicales et générer un rapport d’évaluation du risque.
 ---
 ## 📖 Table des matières
-
-- [✨ Fonctionnalités]([#-fonctionnalites])
-- [🏗️ Architecture]([#-architecture])
-- [🗺️ Structure du projet]([#-structure-du-projet])
-- [⚙️ Prérequis]([#-prerequis])
-- [📥 Installation]([#-installation])
-- [🔐 Connexion]([#-connexion])
-- [🌿 Green Code]([#-green-code])   
+- [✨ Fonctionnalités](#fonctionnalites)
+- [🏗️ Architecture](#architecture)
+- [🗺️ Structure du projet](#structure-du-projet)
+- [⚙️ Prérequis](#prerequis)
+- [📥 Installation](#installation)
+- [🔐 Connexion](#connexion)
+- [🌿 Green Code](#green-code)
  --- 
-## **✨ Fonctionnalités**
+## **✨ Fonctionnalités** 
 
 ### **🏥 Gestion des patients**
 ✅ Enregistrement et modification des informations démographiques des patients (nom, âge, etc.).  
