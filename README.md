@@ -1,15 +1,16 @@
 # 🎯 Medilabo Solution - Application de Détection du Diabète de Type 2
 **🚑 Medilabo Solution** est une application permettant d’identifier les patients à risque de développer un diabète de type 2. Elle aide les médecins à gérer les informations des patients, ajouter des notes médicales et générer un rapport d’évaluation du risque.
+---
+## 📖 Table des matières
 
-## **📖 Table des matières**
-- [✨ Fonctionnalités](#fonctionnalités)
-- [🏗️ Architecture](#architecture)
-- [🗺️ Structure du projet](#structure)
-- [⚙️ Prérequis](#prérequis)
-- [📥 Installation](#installation)
-- [🔐 Connexion](#connexion)
-- [🌿 Green Code](#greencode)    
-  
+- [✨ Fonctionnalités]([#-fonctionnalites])
+- [🏗️ Architecture]([#-architecture])
+- [🗺️ Structure du projet]([#-structure-du-projet])
+- [⚙️ Prérequis]([#-prerequis])
+- [📥 Installation]([#-installation])
+- [🔐 Connexion]([#-connexion])
+- [🌿 Green Code]([#-green-code])   
+ --- 
 ## **✨ Fonctionnalités**
 
 ### **🏥 Gestion des patients**
@@ -22,7 +23,8 @@
 ### **📊 Analyse du risque de diabète**
 ✅ Génération d’un rapport basé sur l’âge et les notes médicales.  
 ✅ Identification des patients a risque.
-  
+
+---
 ## **🏗️ Architecture**
 L’application est découpée en plusieurs **microservices ASP.NET Core** :
 
@@ -33,15 +35,15 @@ L’application est découpée en plusieurs **microservices ASP.NET Core** :
 🔹 **DiabeticAssessmentAPI** : Genere le rapport de diabete du patient.  
 🔹 **Frontend** : Affiche le contenu au client.  
 **📦 Chaque microservice est déployé sous forme d’image Docker.**
-
+---
 ## **🗺️ Structure du projet**
 
 ![Structure du projet](assets/structure_projet.png)
-
+---
 ## **⚙️ Prérequis**
 ✔️ .NET 6 ou supérieur installé sur votre machine.  
 ✔️ Docker pour exécuter les microservices.
-
+---
 ## **📥 Installation**
 ### **🛠️ Étapes d’installation**  
 1️⃣ Clonez le dépôt Git :
@@ -74,11 +76,13 @@ Si Docker est installé, lancez tous les microservices avec :
 ```bash
 docker-compose up -d
 ```
+---
 ## **🔐 Connexion**
 Pour accéder à l'application, utilisez les identifiants suivants :  
 
 **👤 Nom d'utilisateur** : Usertest  
 **🔑 Mot de passe** : UserTest123!
+---
 ## **🌿 Green Code**
 **Pourquoi 🌍 :**  
 ✅ Le numérique consomme un fort pourcentage d'électricité mondial et produit 4% des émissions de CO2  
